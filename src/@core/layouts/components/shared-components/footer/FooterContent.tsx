@@ -24,27 +24,12 @@ const FooterContent = () => {
         <Box component='span' sx={{ color: 'error.main' }}>
           ❤️
         </Box>
-        {` by `}
-        <LinkStyled target='_blank' href='https://pixinvent.com/'>
-          Pixinvent
-        </LinkStyled>
+        {` by Đặng Hải Bằng`}
       </Typography>
       {hidden ? null : (
         <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', '& :not(:last-child)': { mr: 4 } }}>
-          <LinkStyled target='_blank' href='https://themeforest.net/licenses/standard'>
-            License
-          </LinkStyled>
-          <LinkStyled target='_blank' href='https://1.envato.market/pixinvent_portfolio'>
-            More Themes
-          </LinkStyled>
-          <LinkStyled
-            target='_blank'
-            href='https://demos.pixinvent.com/materialize-nextjs-admin-template/documentation'
-          >
-            Documentation
-          </LinkStyled>
-          <LinkStyled target='_blank' href='https://pixinvent.ticksy.com/'>
-            Support
+          <LinkStyled target='_blank' href='https://github.com/haibangdang/iq_testing'>
+            More Details
           </LinkStyled>
         </Box>
       )}
