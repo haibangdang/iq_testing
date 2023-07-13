@@ -73,4 +73,9 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
+Pricing.acl = {
+  action: 'read',
+  subject: 'acl-page'
+}
+
 export default Pricing

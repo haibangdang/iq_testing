@@ -78,4 +78,9 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
+HelpCenter.acl = {
+  action: 'read',
+  subject: 'acl-page'
+}
+
 export default HelpCenter

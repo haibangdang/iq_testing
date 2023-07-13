@@ -76,4 +76,9 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
+FAQ.acl = {
+  action: 'read',
+  subject: 'acl-page'
+}
+
 export default FAQ

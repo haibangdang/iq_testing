@@ -11,22 +11,22 @@ const navigation: VerticalNavItemsType = [
     badgeContent: 'new',
     badgeColor: 'error',
     children: [
-      {
-        title: 'CRM',
-        path: '/dashboards/crm'
-      },
+      // {
+      //   title: 'CRM',
+      //   path: '/dashboards/crm'
+      // },
       {
         title: 'Analytics',
-        path: '/dashboards/analytics'
-      },
-      {
-        title: 'eCommerce',
-        path: '/dashboards/ecommerce'
+        path: '/dashboards/analytics',
+        action: 'read',
+        subject: 'acl-page'
       }
+
+      // {
+      //   title: 'eCommerce',
+      //   path: '/dashboards/ecommerce'
+      // }
     ]
-  },
-  {
-    sectionTitle: 'Apps & Pages'
   },
   {
     title: 'Email',
@@ -123,19 +123,27 @@ const navigation: VerticalNavItemsType = [
         children: [
           {
             title: 'Profile',
-            path: '/pages/user-profile/profile'
+            path: '/pages/user-profile/profile',
+            action: 'read',
+            subject: 'acl-page'
           },
           {
             title: 'Teams',
-            path: '/pages/user-profile/teams'
+            path: '/pages/user-profile/teams',
+            action: 'read',
+            subject: 'acl-page'
           },
           {
             title: 'Projects',
-            path: '/pages/user-profile/projects'
+            path: '/pages/user-profile/projects',
+            action: 'read',
+            subject: 'acl-page'
           },
           {
             title: 'Connections',
-            path: '/pages/user-profile/connections'
+            path: '/pages/user-profile/connections',
+            action: 'read',
+            subject: 'acl-page'
           }
         ]
       },
@@ -144,38 +152,54 @@ const navigation: VerticalNavItemsType = [
         children: [
           {
             title: 'Account',
-            path: '/pages/account-settings/account'
+            path: '/pages/account-settings/account',
+            action: 'read',
+            subject: 'acl-page'
           },
           {
             title: 'Security',
-            path: '/pages/account-settings/security'
+            path: '/pages/account-settings/security',
+            action: 'read',
+            subject: 'acl-page'
           },
           {
             title: 'Billing',
-            path: '/pages/account-settings/billing'
+            path: '/pages/account-settings/billing',
+            action: 'read',
+            subject: 'acl-page'
           },
           {
             title: 'Notifications',
-            path: '/pages/account-settings/notifications'
+            path: '/pages/account-settings/notifications',
+            action: 'read',
+            subject: 'acl-page'
           },
 
           {
             title: 'Connections',
-            path: '/pages/account-settings/connections'
+            path: '/pages/account-settings/connections',
+            action: 'read',
+            subject: 'acl-page'
           }
         ]
       },
       {
         title: 'FAQ',
-        path: '/pages/faq'
+        path: '/pages/faq',
+        action: 'read',
+        subject: 'acl-page'
       },
       {
         title: 'Help Center',
-        path: '/pages/help-center'
+        path: '/pages/help-center',
+        action: 'read',
+        subject: 'acl-page'
       },
       {
         title: 'Pricing',
-        path: '/pages/pricing'
+        path: '/pages/pricing',
+        action: 'read',
+        subject: 'acl-page'
       },
       {
         title: 'Miscellaneous',
@@ -339,9 +363,6 @@ const navigation: VerticalNavItemsType = [
     path: '/pages/dialog-examples'
   },
   {
-    sectionTitle: 'User Interface'
-  },
-  {
     title: 'Typography',
     icon: 'mdi:format-letter-case',
     path: '/ui/typography'
@@ -352,7 +373,6 @@ const navigation: VerticalNavItemsType = [
     icon: 'mdi:google-circles-extended'
   },
   {
-    
     title: 'Cards',
     icon: 'mdi:credit-card-outline',
     children: [
@@ -467,11 +487,8 @@ const navigation: VerticalNavItemsType = [
       {
         title: 'More',
         path: '/components/more'
-      },
+      }
     ]
-  },
-  {
-    sectionTitle: 'Forms & Tables'
   },
   {
     title: 'Form Elements',
@@ -528,7 +545,7 @@ const navigation: VerticalNavItemsType = [
       {
         title: 'Input Mask',
         path: '/forms/form-elements/input-mask'
-      },
+      }
     ]
   },
   {
@@ -576,6 +593,13 @@ const navigation: VerticalNavItemsType = [
         path: '/charts/chartjs'
       }
     ]
+  },
+  {
+    path: '/docs',
+    action: 'read',
+    subject: 'acl-page',
+    icon: 'mdi:text-box-search-outline',
+    title: 'Documentation'
   },
   {
     path: '/acl',
