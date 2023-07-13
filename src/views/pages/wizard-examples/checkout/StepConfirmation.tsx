@@ -127,7 +127,7 @@ const StepConfirmation = () => {
               </Box>
               <Typography sx={{ fontWeight: 600 }}>Shipping</Typography>
             </Box>
-            <Typography sx={{ color: 'text.secondary' }}>John Doe</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>Hai Bang</Typography>
             <Typography sx={{ color: 'text.secondary' }}>4135 Parkway Street,</Typography>
             <Typography sx={{ color: 'text.secondary' }}>Los Angeles, CA 90017,</Typography>
             <Typography sx={{ mb: 4, color: 'text.secondary' }}>USA</Typography>
@@ -140,7 +140,7 @@ const StepConfirmation = () => {
               </Box>
               <Typography sx={{ fontWeight: 600 }}>Billing Address</Typography>
             </Box>
-            <Typography sx={{ color: 'text.secondary' }}>John Doe</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>Hai Bang</Typography>
             <Typography sx={{ color: 'text.secondary' }}>4135 Parkway Street,</Typography>
             <Typography sx={{ color: 'text.secondary' }}>Los Angeles, CA 90017,</Typography>
             <Typography sx={{ mb: 4, color: 'text.secondary' }}>USA</Typography>

@@ -3,27 +3,53 @@ import { VerticalNavItemsType } from 'src/@core/layouts/types'
 
 const navigation = (): VerticalNavItemsType => {
   return [
+    // {
+    //   title: 'Dashboards',
+    //   icon: 'mdi:home-outline',
+    //   badgeContent: 'new',
+    //   badgeColor: 'error',
+    //   children: [
+    //     {
+    //       title: 'CRM',
+    //       path: '/dashboards/crm'
+    //     },
+    //     {
+    //       title: 'Analytics',
+    //       path: '/dashboards/analytics',
+    //       action: 'read',
+    //       subject: 'acl-page'
+    //     },
+    //     {
+    //       title: 'eCommerce',
+    //       path: '/dashboards/ecommerce'
+    //     }
+    //   ]
+    // },
     {
-      title: 'Dashboards',
+      path: '/dashboard',
+      action: 'read',
+      subject: 'acl-page',
       icon: 'mdi:home-outline',
-      badgeContent: 'new',
-      badgeColor: 'error',
-      children: [
-        {
-          title: 'CRM',
-          path: '/dashboards/crm'
-        },
-        {
-          title: 'Analytics',
-          path: '/dashboards/analytics',
-          action: 'read',
-          subject: 'acl-page'
-        },
-        {
-          title: 'eCommerce',
-          path: '/dashboards/ecommerce'
-        }
-      ]
+      title: 'Dashboards'
+    },
+    {
+      title: 'Create Test',
+      icon: 'fluent-mdl2:test-auto-solid',
+      path: '/create-test'
+    },
+    {
+      path: '/test',
+      action: 'read',
+      subject: 'acl-page',
+      icon: 'bx:test-tube',
+      title: 'Tests'
+    },
+    {
+      path: '/test-result',
+      action: 'read',
+      subject: 'acl-page',
+      icon: 'fluent-mdl2:test-case',
+      title: 'Test Results'
     },
     {
       title: 'Email',
@@ -110,6 +136,13 @@ const navigation = (): VerticalNavItemsType => {
           path: '/apps/permissions'
         }
       ]
+    },
+    {
+      path: '/leader-board',
+      action: 'read',
+      subject: 'acl-page',
+      icon: 'icon-park:ranking',
+      title: 'Leaderboard'
     },
     {
       title: 'Pages',
@@ -589,26 +622,20 @@ const navigation = (): VerticalNavItemsType => {
       ]
     },
     {
-      path: '/leader-board',
-      action: 'read',
-      subject: 'acl-page',
-      icon: 'icon-park:ranking',
-      title: 'Leaderboard'
-    },
-    {
       path: '/docs',
       action: 'read',
       subject: 'acl-page',
       icon: 'mdi:text-box-search-outline',
       title: 'Documentation'
-    },
-    {
-      path: '/acl',
-      action: 'read',
-      subject: 'acl-page',
-      icon: 'mdi:shield-outline',
-      title: 'Access Control'
     }
+
+    // {
+    //   path: '/acl',
+    //   action: 'read',
+    //   subject: 'acl-page',
+    //   icon: 'mdi:shield-outline',
+    //   title: 'Access Control'
+    // }
 
     // {
     //   title: 'Others',

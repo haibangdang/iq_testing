@@ -88,19 +88,19 @@ const DialogEditUserInfo = () => {
           </Box>
           <Grid container spacing={6}>
             <Grid item sm={6} xs={12}>
-              <TextField fullWidth defaultValue='Oliver' label='First Name' placeholder='John' />
+              <TextField fullWidth defaultValue='Oliver' label='First Name' placeholder='Bang' />
             </Grid>
             <Grid item sm={6} xs={12}>
               <TextField fullWidth defaultValue='Queen' label='Last Name' placeholder='Doe' />
             </Grid>
             <Grid item xs={12}>
-              <TextField fullWidth defaultValue='oliverQueen' label='Username' placeholder='johnDoe' />
+              <TextField fullWidth defaultValue='oliverQueen' label='Username' placeholder='haibang' />
             </Grid>
             <Grid item sm={6} xs={12}>
               <TextField
                 fullWidth
                 label='Billing Email'
-                placeholder='johnDoe@email.com'
+                placeholder='haibang@email.com'
                 defaultValue='oliverQueen@email.com'
               />
             </Grid>

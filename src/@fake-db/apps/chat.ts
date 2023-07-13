@@ -11,7 +11,7 @@ const data: { chats: ChatsObj[]; contacts: ContactType[]; profileUser: ProfileUs
   profileUser: {
     id: 11,
     avatar: '/images/avatars/1.png',
-    fullName: 'John Doe',
+    fullName: 'Hai Bang',
     role: 'admin',
     about:
       'Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw brownie brownie marshmallow.',
@@ -127,7 +127,7 @@ const data: { chats: ChatsObj[]; contacts: ContactType[]; profileUser: ProfileUs
           }
         },
         {
-          message: 'Hey John, I am looking for the best admin template. Could you please help me to find it out?',
+          message: 'Hey Bang, I am looking for the best admin template. Could you please help me to find it out?',
           time: 'Mon Dec 10 2018 07:45:23 GMT+0000 (GMT)',
           senderId: 1,
           feedback: {

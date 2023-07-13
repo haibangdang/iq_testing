@@ -325,7 +325,7 @@ const AddEventSidebar = (props: AddEventSidebarType) => {
                 <MenuItem value='bruce'>Bruce</MenuItem>
                 <MenuItem value='clark'>Clark</MenuItem>
                 <MenuItem value='diana'>Diana</MenuItem>
-                <MenuItem value='john'>John</MenuItem>
+                <MenuItem value='john'>Bang</MenuItem>
                 <MenuItem value='barry'>Barry</MenuItem>
               </Select>
             </FormControl>

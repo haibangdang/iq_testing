@@ -102,7 +102,7 @@ const renderClient = (row: UsersType) => {
         color={row.avatarColor || 'primary'}
         sx={{ mr: 3, width: 34, height: 34, fontSize: '1rem' }}
       >
-        {getInitials(row.fullName ? row.fullName : 'John Doe')}
+        {getInitials(row.fullName ? row.fullName : 'Hai Bang')}
       </CustomAvatar>
     )
   }

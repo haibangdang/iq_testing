@@ -168,7 +168,7 @@ const TimelineRight = () => {
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Avatar src='/images/avatars/1.png' sx={{ width: '2rem', height: '2rem', mr: 2 }} />
             <Typography variant='subtitle2' sx={{ fontWeight: 600 }}>
-              John Doe (Client)
+              Hai Bang (Client)
             </Typography>
           </Box>
         </TimelineContent>

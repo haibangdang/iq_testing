@@ -40,7 +40,7 @@ const AnalyticsCongratulations = () => {
             <Typography variant='h5' sx={{ mb: 4.5 }}>
               Congratulations{' '}
               <Box component='span' sx={{ fontWeight: 'bold' }}>
-                John
+                Bang
               </Box>
               ! 🎉
             </Typography>
@@ -57,7 +57,7 @@ const AnalyticsCongratulations = () => {
             <Button variant='contained'>View Profile</Button>
           </Grid>
           <StyledGrid item xs={12} sm={6}>
-            <Img alt='Congratulations John' src={`/images/cards/illustration-john-${theme.palette.mode}.png`} />
+            <Img alt='Congratulations Bang' src={`/images/cards/illustration-john-${theme.palette.mode}.png`} />
           </StyledGrid>
         </Grid>
       </CardContent>

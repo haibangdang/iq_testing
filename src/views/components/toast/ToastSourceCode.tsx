@@ -93,7 +93,7 @@ const ToastCustom = () => {
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Avatar alt='Victor Anderson' src='/images/avatars/1.png' sx={{ mr: 3, width: 40, height: 40 }} />
             <div>
-              <Typography sx={{ fontWeight: 500 }}>John Doe</Typography>
+              <Typography sx={{ fontWeight: 500 }}>Hai Bang</Typography>
               <Typography variant='caption'>Sure! 8:30pm works great!</Typography>
             </div>
           </Box>
@@ -425,7 +425,7 @@ const ToastCustom = () => {
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Avatar alt='Victor Anderson' src='/images/avatars/1.png' sx={{ mr: 3, width: 40, height: 40 }} />
             <div>
-              <Typography sx={{ fontWeight: 500 }}>John Doe</Typography>
+              <Typography sx={{ fontWeight: 500 }}>Hai Bang</Typography>
               <Typography variant='caption'>Sure! 8:30pm works great!</Typography>
             </div>
           </Box>

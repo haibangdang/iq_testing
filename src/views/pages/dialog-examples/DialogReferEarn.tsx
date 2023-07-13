@@ -189,7 +189,7 @@ const DialogReferEarn = () => {
                 size='small'
                 id='refer-email'
                 sx={{ mr: { xs: 0, sm: 4 } }}
-                placeholder='johnDoe@email.com'
+                placeholder='haibang@email.com'
               />
               <Button variant='contained' sx={{ mt: { xs: 2, sm: 0 }, width: { xs: '100%', sm: 'auto' } }}>
                 Send

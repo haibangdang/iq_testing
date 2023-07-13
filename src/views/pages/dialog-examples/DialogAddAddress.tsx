@@ -142,7 +142,7 @@ const DialogAddAddress = () => {
               </Box>
             </Grid>
             <Grid item sm={6} xs={12}>
-              <TextField fullWidth label='First Name' placeholder='John' />
+              <TextField fullWidth label='First Name' placeholder='Bang' />
             </Grid>
             <Grid item sm={6} xs={12}>
               <TextField fullWidth label='Last Name' placeholder='Doe' />

@@ -35,7 +35,7 @@ const data: CustomRadioBasicData[] = [
   {
     value: 'home',
     isSelected: true,
-    title: 'John Doe (Default)',
+    title: 'Hai Bang (Default)',
     meta: <CustomChip size='small' skin='light' label='Home' color='primary' />,
     content: (
       <Box sx={{ mt: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>

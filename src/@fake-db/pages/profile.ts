@@ -21,7 +21,7 @@ interface DataType {
 
 const data: DataType = {
   profileHeader: {
-    fullName: 'John Doe',
+    fullName: 'Hai Bang',
     location: 'Vatican City',
     joiningDate: 'April 2021',
     designation: 'UX Designer',
@@ -31,7 +31,7 @@ const data: DataType = {
   },
   profile: {
     about: [
-      { property: 'Full Name', value: 'John Doe', icon: 'mdi:account-outline' },
+      { property: 'Full Name', value: 'Hai Bang', icon: 'mdi:account-outline' },
       { property: 'Status', value: 'active', icon: 'mdi:check' },
       { property: 'Role', value: 'Developer', icon: 'mdi:star-outline' },
       { property: 'Country', value: 'USA', icon: 'mdi:flag-outline' },
@@ -151,7 +151,7 @@ const data: DataType = {
       avatar: '/images/icons/project-icons/vue-label.png',
       avatarGroup: [
         { avatar: '/images/avatars/5.png', name: "Kaith D'souza" },
-        { avatar: '/images/avatars/6.png', name: 'John Doe' },
+        { avatar: '/images/avatars/6.png', name: 'Hai Bang' },
         { avatar: '/images/avatars/7.png', name: 'Alan Walker' },
         { avatar: '/images/avatars/8.png', name: 'Calvin Middleton' }
       ],
@@ -341,7 +341,7 @@ const data: DataType = {
       avatar: '/images/icons/project-icons/react-label.png',
       avatarGroup: [
         { avatar: '/images/avatars/4.png', name: "Kaith D'souza" },
-        { avatar: '/images/avatars/5.png', name: 'John Doe' },
+        { avatar: '/images/avatars/5.png', name: 'Hai Bang' },
         { avatar: '/images/avatars/6.png', name: 'Alan Walker' }
       ],
       description: "Time is our most valuable asset, that's why we want to help you save it by creating…"

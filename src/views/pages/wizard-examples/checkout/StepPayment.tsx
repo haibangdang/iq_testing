@@ -86,7 +86,7 @@ const StepPayment = ({ handleNext }: { handleNext: () => void }) => {
                     <TextField fullWidth type='number' label='Card Number' placeholder='1356 3215 6548 7898' />
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <TextField fullWidth label='Name' placeholder='John Doe' />
+                    <TextField fullWidth label='Name' placeholder='Hai Bang' />
                   </Grid>
                   <Grid item xs={6} sm={3}>
                     <TextField fullWidth label='Expiry Date' placeholder='MM/YY' />
@@ -222,7 +222,7 @@ const StepPayment = ({ handleNext }: { handleNext: () => void }) => {
               <Typography sx={{ fontWeight: 600 }}>Deliver to:</Typography>
               <CustomChip size='small' skin='light' color='primary' label='Home' />
             </Box>
-            <Typography sx={{ fontWeight: 600 }}>John Doe (Default),</Typography>
+            <Typography sx={{ fontWeight: 600 }}>Hai Bang (Default),</Typography>
             <Typography sx={{ color: 'text.secondary' }}>4135 Parkway Street,</Typography>
             <Typography sx={{ color: 'text.secondary' }}>Los Angeles, CA, 90017.</Typography>
             <Typography sx={{ mb: 4, color: 'text.secondary' }}>Mobile : +1 906 568 2332</Typography>

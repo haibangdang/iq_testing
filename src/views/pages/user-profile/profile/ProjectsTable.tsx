@@ -40,7 +40,7 @@ const renderName = (row: ProjectTableRowType) => {
         sx={{ mr: 2, width: 35, height: 35, fontSize: '0.875rem' }}
         color={(row.avatarColor as ThemeColor) || ('primary' as ThemeColor)}
       >
-        {getInitials(row.name || 'John Doe')}
+        {getInitials(row.name || 'Hai Bang')}
       </CustomAvatar>
     )
   }

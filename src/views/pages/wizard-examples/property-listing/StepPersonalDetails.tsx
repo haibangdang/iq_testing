@@ -97,7 +97,7 @@ const StepPersonalDetails = () => {
       ))}
       <Grid item xs={12} md={6}>
         <FormControl fullWidth>
-          <TextField label='First Name' placeholder='John' />
+          <TextField label='First Name' placeholder='Bang' />
         </FormControl>
       </Grid>
       <Grid item xs={12} md={6}>

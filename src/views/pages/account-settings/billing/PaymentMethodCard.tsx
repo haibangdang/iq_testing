@@ -232,7 +232,7 @@ const PaymentMethodCard = () => {
                         autoComplete='off'
                         onBlur={handleBlur}
                         label='Name on Card'
-                        placeholder='John Doe'
+                        placeholder='Hai Bang'
                         onChange={e => setName(e.target.value)}
                         onFocus={e => setFocus(e.target.name as Focused)}
                       />
@@ -402,7 +402,7 @@ const PaymentMethodCard = () => {
                         name='nameDialog'
                         autoComplete='off'
                         label='Name on Card'
-                        placeholder='John Doe'
+                        placeholder='Hai Bang'
                         onBlur={handleSelectedCardBlur}
                         defaultValue={selectedCard.name}
                         onChange={e => setSelectedCard({ ...selectedCard, name: e.target.value })}

@@ -162,7 +162,7 @@ const renderUserAvatar = (row: TableBodyRowType) => {
   } else {
     return (
       <CustomAvatar skin='light' sx={{ mr: 3, width: 34, height: 34, fontSize: '.8rem' }}>
-        {getInitials(row.name ? row.name : 'John Doe')}
+        {getInitials(row.name ? row.name : 'Hai Bang')}
       </CustomAvatar>
     )
   }

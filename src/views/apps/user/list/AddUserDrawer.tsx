@@ -172,7 +172,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                   value={value}
                   label='Full Name'
                   onChange={onChange}
-                  placeholder='John Doe'
+                  placeholder='Hai Bang'
                   error={Boolean(errors.fullName)}
                 />
               )}
@@ -189,7 +189,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                   value={value}
                   label='Username'
                   onChange={onChange}
-                  placeholder='johndoe'
+                  placeholder='haibang'
                   error={Boolean(errors.username)}
                 />
               )}
@@ -207,7 +207,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                   value={value}
                   label='Email'
                   onChange={onChange}
-                  placeholder='johndoe@email.com'
+                  placeholder='haibang@email.com'
                   error={Boolean(errors.email)}
                 />
               )}

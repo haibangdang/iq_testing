@@ -91,12 +91,12 @@ const UserViewOverview = ({ invoiceData }: Props) => {
                     }}
                   >
                     <Typography variant='body2' sx={{ mr: 2, fontWeight: 600, color: 'text.primary' }}>
-                      Meeting with John
+                      Meeting with Bang
                     </Typography>
                     <Typography variant='caption'>45 min ago</Typography>
                   </Box>
                   <Typography variant='body2' sx={{ mb: 2 }}>
-                    React Project meeting with John @10:15am
+                    React Project meeting with Bang @10:15am
                   </Typography>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Avatar alt='Avatar' src='/images/avatars/2.png' sx={{ width: 40, height: 40, mr: 2 }} />

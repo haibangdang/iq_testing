@@ -361,7 +361,7 @@ const DefaultSuggestions = ({ setOpenDialog }: DefaultSuggestionsProps) => {
   )
 }
 
-const AutocompleteComponent = ({ hidden, settings }: Props) => {
+const AutocompleteComponent = ({ hidden }: Props) => {
   // ** States
   const [isMounted, setIsMounted] = useState<boolean>(false)
   const [searchValue, setSearchValue] = useState<string>('')
@@ -371,7 +371,6 @@ const AutocompleteComponent = ({ hidden, settings }: Props) => {
   // ** Hooks & Vars
   const theme = useTheme()
   const router = useRouter()
-  const { layout } = settings
   const wrapper = useRef<HTMLDivElement>(null)
   const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'))
 
@@ -452,12 +451,12 @@ const AutocompleteComponent = ({ hidden, settings }: Props) => {
         onClick={() => !openDialog && setOpenDialog(true)}
         sx={{ display: 'flex', cursor: 'pointer', alignItems: 'center' }}
       >
-        <IconButton color='inherit' sx={!hidden && layout === 'vertical' ? { mr: 1, ml: -2.75 } : {}}>
+        {/* <IconButton color='inherit' sx={!hidden && layout === 'vertical' ? { mr: 1, ml: -2.75 } : {}}>
           <Icon icon='mdi:magnify' />
-        </IconButton>
-        {!hidden && layout === 'vertical' ? (
+        </IconButton> */}
+        {/* {!hidden && layout === 'vertical' ? (
           <Typography sx={{ userSelect: 'none', color: 'text.disabled' }}>Search (Ctrl+/)</Typography>
-        ) : null}
+        ) : null} */}
         {openDialog && (
           <Dialog fullWidth open={openDialog} fullScreen={fullScreenDialog} onClose={() => setOpenDialog(false)}>
             <Box sx={{ top: 0, width: '100%', position: 'sticky' }}>

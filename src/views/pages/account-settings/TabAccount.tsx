@@ -52,7 +52,7 @@ const initialData: Data = {
   zipCode: '',
   lastName: 'Doe',
   currency: 'usd',
-  firstName: 'John',
+  firstName: 'Bang',
   language: 'arabic',
   timezone: 'gmt-12',
   country: 'australia',
@@ -169,7 +169,7 @@ const TabAccount = () => {
                   <TextField
                     fullWidth
                     label='First Name'
-                    placeholder='John'
+                    placeholder='Bang'
                     value={formData.firstName}
                     onChange={e => handleFormChange('firstName', e.target.value)}
                   />

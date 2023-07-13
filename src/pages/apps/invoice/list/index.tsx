@@ -96,7 +96,7 @@ const renderClient = (row: InvoiceType) => {
         color={(row.avatarColor as ThemeColor) || ('primary' as ThemeColor)}
         sx={{ mr: 3, fontSize: '1rem', width: 34, height: 34 }}
       >
-        {getInitials(row.name || 'John Doe')}
+        {getInitials(row.name || 'Hai Bang')}
       </CustomAvatar>
     )
   }

@@ -172,7 +172,7 @@ const StepBillingDetails = ({ handlePrev }: { handlePrev: () => void }) => {
             value={name}
             autoComplete='off'
             label='Name on Card'
-            placeholder='John Doe'
+            placeholder='Hai Bang'
             onChange={e => setName(e.target.value)}
           />
         </Grid>
