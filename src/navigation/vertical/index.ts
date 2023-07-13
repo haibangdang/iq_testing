@@ -33,6 +33,37 @@ const navigation = (): VerticalNavItemsType => {
       title: 'Dashboards'
     },
     {
+      title: 'User Profile',
+      icon: 'mdi:home-outline',
+      children: [
+        {
+          title: 'Profile',
+          path: '/pages/user-profile/profile',
+          action: 'read',
+          subject: 'acl-page'
+        },
+        {
+          title: 'Teams',
+          path: '/pages/user-profile/teams',
+          action: 'read',
+          subject: 'acl-page'
+        }
+
+        // {
+        //   title: 'Projects',
+        //   path: '/pages/user-profile/projects',
+        //   action: 'read',
+        //   subject: 'acl-page'
+        // },
+        // {
+        //   title: 'Connections',
+        //   path: '/pages/user-profile/connections',
+        //   action: 'read',
+        //   subject: 'acl-page'
+        // }
+      ]
+    },
+    {
       title: 'Create Test',
       icon: 'fluent-mdl2:test-auto-solid',
       path: '/create-test'
@@ -141,128 +172,173 @@ const navigation = (): VerticalNavItemsType => {
       path: '/leader-board',
       action: 'read',
       subject: 'acl-page',
-      icon: 'icon-park:ranking',
+      icon: 'icon-park-outline:ranking',
       title: 'Leaderboard'
     },
     {
-      title: 'Pages',
-      icon: 'mdi:file-document-outline',
+      title: 'Pricing',
+      path: '/pages/pricing',
+      icon: 'ant-design:dollar-outlined',
+      action: 'read',
+      subject: 'acl-page'
+    },
+    {
+      title: 'Settings',
+      icon: 'ant-design:setting-outlined',
       children: [
         {
-          title: 'User Profile',
-          children: [
-            {
-              title: 'Profile',
-              path: '/pages/user-profile/profile',
-              action: 'read',
-              subject: 'acl-page'
-            },
-            {
-              title: 'Teams',
-              path: '/pages/user-profile/teams',
-              action: 'read',
-              subject: 'acl-page'
-            },
-            {
-              title: 'Projects',
-              path: '/pages/user-profile/projects',
-              action: 'read',
-              subject: 'acl-page'
-            },
-            {
-              title: 'Connections',
-              path: '/pages/user-profile/connections',
-              action: 'read',
-              subject: 'acl-page'
-            }
-          ]
+          title: 'Account',
+          path: '/pages/account-settings/account',
+          action: 'read',
+          subject: 'acl-page'
         },
         {
-          title: 'Account Settings',
-          children: [
-            {
-              title: 'Account',
-              path: '/pages/account-settings/account',
-              action: 'read',
-              subject: 'acl-page'
-            },
-            {
-              title: 'Security',
-              path: '/pages/account-settings/security',
-              action: 'read',
-              subject: 'acl-page'
-            },
-            {
-              title: 'Billing',
-              path: '/pages/account-settings/billing',
-              action: 'read',
-              subject: 'acl-page'
-            },
-            {
-              title: 'Notifications',
-              path: '/pages/account-settings/notifications',
-              action: 'read',
-              subject: 'acl-page'
-            },
+          title: 'Security',
+          path: '/pages/account-settings/security',
+          action: 'read',
+          subject: 'acl-page'
+        },
+        {
+          title: 'Billing',
+          path: '/pages/account-settings/billing',
+          action: 'read',
+          subject: 'acl-page'
+        },
+        {
+          title: 'Notifications',
+          path: '/pages/account-settings/notifications',
+          action: 'read',
+          subject: 'acl-page'
+        },
 
-            {
-              title: 'Connections',
-              path: '/pages/account-settings/connections',
-              action: 'read',
-              subject: 'acl-page'
-            }
-          ]
-        },
         {
-          title: 'FAQ',
-          path: '/pages/faq',
+          title: 'Connections',
+          path: '/pages/account-settings/connections',
           action: 'read',
           subject: 'acl-page'
-        },
-        {
-          title: 'Help Center',
-          path: '/pages/help-center',
-          action: 'read',
-          subject: 'acl-page'
-        },
-        {
-          title: 'Pricing',
-          path: '/pages/pricing',
-          action: 'read',
-          subject: 'acl-page'
-        },
-        {
-          title: 'Miscellaneous',
-          children: [
-            {
-              openInNewTab: true,
-              title: 'Coming Soon',
-              path: '/pages/misc/coming-soon'
-            },
-            {
-              openInNewTab: true,
-              title: 'Under Maintenance',
-              path: '/pages/misc/under-maintenance'
-            },
-            {
-              openInNewTab: true,
-              title: 'Page Not Found - 404',
-              path: '/pages/misc/404-not-found'
-            },
-            {
-              openInNewTab: true,
-              title: 'Not Authorized - 401',
-              path: '/pages/misc/401-not-authorized'
-            },
-            {
-              openInNewTab: true,
-              title: 'Server Error - 500',
-              path: '/pages/misc/500-server-error'
-            }
-          ]
         }
       ]
     },
+
+    // {
+    //   title: 'Pages',
+    //   icon: 'mdi:file-document-outline',
+    //   children: [
+    //     {
+    //       title: 'User Profile',
+    //       children: [
+    //         {
+    //           title: 'Profile',
+    //           path: '/pages/user-profile/profile',
+    //           action: 'read',
+    //           subject: 'acl-page'
+    //         },
+    //         {
+    //           title: 'Teams',
+    //           path: '/pages/user-profile/teams',
+    //           action: 'read',
+    //           subject: 'acl-page'
+    //         },
+    //         {
+    //           title: 'Projects',
+    //           path: '/pages/user-profile/projects',
+    //           action: 'read',
+    //           subject: 'acl-page'
+    //         },
+    //         {
+    //           title: 'Connections',
+    //           path: '/pages/user-profile/connections',
+    //           action: 'read',
+    //           subject: 'acl-page'
+    //         }
+    //       ]
+    //     },
+    //     {
+    //       title: 'Account Settings',
+    //       children: [
+    //         {
+    //           title: 'Account',
+    //           path: '/pages/account-settings/account',
+    //           action: 'read',
+    //           subject: 'acl-page'
+    //         },
+    //         {
+    //           title: 'Security',
+    //           path: '/pages/account-settings/security',
+    //           action: 'read',
+    //           subject: 'acl-page'
+    //         },
+    //         {
+    //           title: 'Billing',
+    //           path: '/pages/account-settings/billing',
+    //           action: 'read',
+    //           subject: 'acl-page'
+    //         },
+    //         {
+    //           title: 'Notifications',
+    //           path: '/pages/account-settings/notifications',
+    //           action: 'read',
+    //           subject: 'acl-page'
+    //         },
+
+    //         {
+    //           title: 'Connections',
+    //           path: '/pages/account-settings/connections',
+    //           action: 'read',
+    //           subject: 'acl-page'
+    //         }
+    //       ]
+    //     },
+    //     {
+    //       title: 'FAQ',
+    //       path: '/pages/faq',
+    //       action: 'read',
+    //       subject: 'acl-page'
+    //     },
+    //     {
+    //       title: 'Help Center',
+    //       path: '/pages/help-center',
+    //       action: 'read',
+    //       subject: 'acl-page'
+    //     },
+    //     {
+    //       title: 'Pricing',
+    //       path: '/pages/pricing',
+    //       action: 'read',
+    //       subject: 'acl-page'
+    //     },
+    //     {
+    //       title: 'Miscellaneous',
+    //       children: [
+    //         {
+    //           openInNewTab: true,
+    //           title: 'Coming Soon',
+    //           path: '/pages/misc/coming-soon'
+    //         },
+    //         {
+    //           openInNewTab: true,
+    //           title: 'Under Maintenance',
+    //           path: '/pages/misc/under-maintenance'
+    //         },
+    //         {
+    //           openInNewTab: true,
+    //           title: 'Page Not Found - 404',
+    //           path: '/pages/misc/404-not-found'
+    //         },
+    //         {
+    //           openInNewTab: true,
+    //           title: 'Not Authorized - 401',
+    //           path: '/pages/misc/401-not-authorized'
+    //         },
+    //         {
+    //           openInNewTab: true,
+    //           title: 'Server Error - 500',
+    //           path: '/pages/misc/500-server-error'
+    //         }
+    //       ]
+    //     }
+    //   ]
+    // },
     {
       title: 'Auth Pages',
       icon: 'mdi:lock-outline',
@@ -627,6 +703,13 @@ const navigation = (): VerticalNavItemsType => {
       subject: 'acl-page',
       icon: 'mdi:text-box-search-outline',
       title: 'Documentation'
+    },
+    {
+      title: 'FAQ',
+      path: '/pages/faq',
+      icon: 'fluent:book-question-mark-20-regular',
+      action: 'read',
+      subject: 'acl-page'
     }
 
     // {
