@@ -33,37 +33,45 @@ const navigation = (): VerticalNavItemsType => {
       title: 'Dashboards'
     },
     {
-      title: 'User Profile',
+      title: 'Profile',
+      path: '/pages/user-profile/profile',
       icon: 'mdi:home-outline',
-      children: [
-        {
-          title: 'Profile',
-          path: '/pages/user-profile/profile',
-          action: 'read',
-          subject: 'acl-page'
-        }
-
-        // {
-        //   title: 'Teams',
-        //   path: '/pages/user-profile/teams',
-        //   action: 'read',
-        //   subject: 'acl-page'
-        // }
-
-        // {
-        //   title: 'Projects',
-        //   path: '/pages/user-profile/projects',
-        //   action: 'read',
-        //   subject: 'acl-page'
-        // },
-        // {
-        //   title: 'Connections',
-        //   path: '/pages/user-profile/connections',
-        //   action: 'read',
-        //   subject: 'acl-page'
-        // }
-      ]
+      action: 'read',
+      subject: 'acl-page'
     },
+
+    // {
+    //   title: 'User Profile',
+    //   icon: 'mdi:home-outline',
+    //   children: [
+    //     {
+    //       title: 'Profile',
+    //       path: '/pages/user-profile/profile',
+    //       action: 'read',
+    //       subject: 'acl-page'
+    //     }
+
+    // {
+    //   title: 'Teams',
+    //   path: '/pages/user-profile/teams',
+    //   action: 'read',
+    //   subject: 'acl-page'
+    // }
+
+    // {
+    //   title: 'Projects',
+    //   path: '/pages/user-profile/projects',
+    //   action: 'read',
+    //   subject: 'acl-page'
+    // },
+    // {
+    //   title: 'Connections',
+    //   path: '/pages/user-profile/connections',
+    //   action: 'read',
+    //   subject: 'acl-page'
+    // }
+    //   ]
+    // },
     {
       path: '/test',
       action: 'read',
