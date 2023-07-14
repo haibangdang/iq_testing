@@ -65,11 +65,6 @@ const navigation = (): VerticalNavItemsType => {
       ]
     },
     {
-      title: 'Create Test',
-      icon: 'fluent-mdl2:test-auto-solid',
-      path: '/create-test'
-    },
-    {
       path: '/test',
       action: 'read',
       subject: 'acl-page',
@@ -118,6 +113,12 @@ const navigation = (): VerticalNavItemsType => {
         {
           title: 'Add',
           path: '/apps/invoice/add'
+        },
+        {
+          title: 'Pricing',
+          path: '/pages/pricing',
+          action: 'read',
+          subject: 'acl-page'
         }
       ]
     },
@@ -178,13 +179,6 @@ const navigation = (): VerticalNavItemsType => {
       subject: 'acl-page',
       icon: 'icon-park-outline:ranking',
       title: 'Leaderboard'
-    },
-    {
-      title: 'Pricing',
-      path: '/pages/pricing',
-      icon: 'ant-design:dollar-outlined',
-      action: 'read',
-      subject: 'acl-page'
     },
     {
       title: 'Settings',
