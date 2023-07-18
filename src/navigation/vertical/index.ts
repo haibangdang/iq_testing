@@ -74,10 +74,17 @@ const navigation = (): VerticalNavItemsType => {
     // },
     {
       path: '/test',
-      action: 'read',
-      subject: 'acl-page',
-      icon: 'bx:test-tube',
+      icon: 'fluent-mdl2:test-auto-solid',
       title: 'Tests'
+    },
+    {
+      title: 'Take IQ Test',
+      path: '/take-test',
+      icon: 'bx:test-tube',
+      badgeContent: 'free',
+      badgeColor: 'error',
+      action: 'read',
+      subject: 'acl-page'
     },
 
     // {
