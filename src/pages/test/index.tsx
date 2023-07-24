@@ -16,7 +16,7 @@ const TestPage = () => {
           <Button variant='contained'>Add</Button>
         </Box>
       </Box>
-      <Box>
+      <Box sx={{ mt: 4}}>
         <HistoryTable />
       </Box>
     </Box>
