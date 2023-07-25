@@ -5,6 +5,13 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
+import { useSelector } from 'react-redux'
+
+// ** Next Imports
+import { GetStaticProps, InferGetStaticPropsType } from 'next/types'
+
+// ** Third Party Imports
+import axios from 'axios'
 
 // ** Styled Component Import
 import { TakeTestWrapper, SubmitButton } from 'src/@core/styles/libs/take-test'
@@ -42,7 +49,12 @@ function a11yProps(index: number) {
   }
 }
 
-export default function TakeTest() {
+// export default function TakeTest() {
+const TakeTest = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const store = useSelector(state => state.test)
+  console.log('store', store);
+
+  console.log('apiData', apiData);
   const [value, setValue] = React.useState(0)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -110,7 +122,25 @@ export default function TakeTest() {
   )
 }
 
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await axios.get('/tests/getAll')
+
+  // const res = await axios.get('https://iqtest-server.onrender.com/api/tests')
+
+  const apiData: any = res.data
+
+  return {
+    props: {
+      apiData
+    }
+  }
+}
+
 TakeTest.acl = {
   action: 'read',
   subject: 'acl-page'
 }
+
+export default TakeTest
+
+// https://iqtest-server.onrender.com/api/tests

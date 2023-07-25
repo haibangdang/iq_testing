@@ -35,7 +35,7 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Profile',
       path: '/pages/user-profile/profile',
-      icon: 'mdi:home-outline',
+      icon: 'mdi:account-circle-outline',
       action: 'read',
       subject: 'acl-page'
     },
