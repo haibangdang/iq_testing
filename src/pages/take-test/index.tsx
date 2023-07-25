@@ -1,4 +1,6 @@
 import * as React from 'react'
+import { useEffect } from 'react'
+
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography'
@@ -6,11 +8,10 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 
-// ** Next Imports
-import { GetStaticProps, InferGetStaticPropsType } from 'next/types'
+import { RootState, AppDispatch } from 'src/store'
 
-// ** Third Party Imports
-import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAllTest } from 'src/store/apps/test'
 
 // ** Styled Component Import
 import { TakeTestWrapper, SubmitButton } from 'src/@core/styles/libs/take-test'
@@ -49,9 +50,14 @@ function a11yProps(index: number) {
 }
 
 // export default function TakeTest() {
-const TakeTest = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const TakeTest = () => {
+  const dispatch = useDispatch<AppDispatch>()
+  useEffect(() => {
+    dispatch(fetchAllTest())
+  }, [dispatch])
 
-  console.log('apiData', apiData);
+  const store = useSelector((state: RootState) => state.test)
+  console.log('TakeTest store', store);
   const [value, setValue] = React.useState(0)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -119,25 +125,9 @@ const TakeTest = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) =
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const res = await axios.get('/tests/getAll')
-
-  // const res = await axios.get('https://iqtest-server.onrender.com/api/tests')
-
-  const apiData: any = res.data
-
-  return {
-    props: {
-      apiData
-    }
-  }
-}
-
 TakeTest.acl = {
   action: 'read',
   subject: 'acl-page'
 }
 
 export default TakeTest
-
-// https://iqtest-server.onrender.com/api/tests
