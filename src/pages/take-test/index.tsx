@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
-import { useSelector } from 'react-redux'
 
 // ** Next Imports
 import { GetStaticProps, InferGetStaticPropsType } from 'next/types'
@@ -51,8 +50,6 @@ function a11yProps(index: number) {
 
 // export default function TakeTest() {
 const TakeTest = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const store = useSelector(state => state.test)
-  console.log('store', store);
 
   console.log('apiData', apiData);
   const [value, setValue] = React.useState(0)
