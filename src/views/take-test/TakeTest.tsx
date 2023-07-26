@@ -11,7 +11,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import { RootState, AppDispatch } from 'src/store'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAllTest } from 'src/store/apps/test'
+import { selectedTest } from 'src/store/apps/test'
 
 import { TakeTestLayoutProps } from 'src/types/apps/takeTestTypes'
 
@@ -55,11 +55,11 @@ function a11yProps(index: number) {
 const TakeTestIQ = ({id} : TakeTestLayoutProps) => {
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
-    dispatch(fetchAllTest())
+    dispatch(selectedTest(id))
   }, [dispatch])
 
-  const store = useSelector((state: RootState) => state.test)
-  console.log('TakeTest store', store);
+  const store = useSelector((state: RootState) => state.test.selectedTest)
+  console.log('selected test', store);
   const [value, setValue] = React.useState(0)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {

@@ -33,7 +33,9 @@ export const selectChat = createAsyncThunk(
     })
     await dispatch(fetchChatsContacts())
 
-    return response.data
+    console.log('selectedChat', response);
+    
+return response.data
   }
 )
 

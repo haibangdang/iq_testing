@@ -128,6 +128,8 @@ const TestType = () => {
             <DataGrid
               autoHeight
               pagination
+              // eslint-disable-next-line
+              // @ts-ignore
               rows={store.test}
               columns={columns}
               checkboxSelection
