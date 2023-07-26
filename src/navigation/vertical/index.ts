@@ -79,7 +79,7 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: 'Take IQ Test',
-      path: '/take-test',
+      path: '/test-type',
       icon: 'bx:test-tube',
       badgeContent: 'free',
       badgeColor: 'error',

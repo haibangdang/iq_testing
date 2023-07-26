@@ -236,7 +236,7 @@ const InvoiceList = () => {
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const store = useSelector((state: RootState) => state.invoice)
-
+  console.log('storestorestore', store);
   useEffect(() => {
     dispatch(
       fetchData({

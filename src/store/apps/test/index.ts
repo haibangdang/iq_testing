@@ -18,7 +18,7 @@ export const fetchAllTest = createAsyncThunk('fetchAllTests', async () => {
 
     const responseData = await response.json();
 
-    return responseData;
+return responseData;
 
   } catch (error:any) {
     throw new Error(error.message);
@@ -54,12 +54,13 @@ export const fetchAllTest = createAsyncThunk('fetchAllTests', async () => {
 export const testSlice = createSlice({
   name: 'appChat',
   initialState: {
-    tests: [],
+    test: {},
   },
   reducers: {},
+
   extraReducers: builder => {
     builder.addCase(fetchAllTest.fulfilled, (state, action) => {
-      state.tests = action.payload
+      state.test = action.payload.test
     })
   }
 })
