@@ -142,6 +142,7 @@ const TestType = () => {
   )
 }
 
+//@ts-ignore
 TestType.acl = {
   action: 'read',
   subject: 'acl-page'
