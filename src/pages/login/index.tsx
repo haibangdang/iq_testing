@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, ReactNode, MouseEvent, useEffect } from 'react'
+import { useState, ReactNode, MouseEvent } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -43,9 +43,6 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
-import { fetchAllTest } from 'src/store/apps/test'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from 'src/store'
 
 // ** Styled Components
 const LoginIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
@@ -113,10 +110,6 @@ interface FormData {
 }
 
 const LoginPage = () => {
-  const dispatch = useDispatch<AppDispatch>()
-  useEffect(() => {
-    dispatch(fetchAllTest());
-  }, [dispatch]);
   const [rememberMe, setRememberMe] = useState<boolean>(true)
   const [showPassword, setShowPassword] = useState<boolean>(false)
 

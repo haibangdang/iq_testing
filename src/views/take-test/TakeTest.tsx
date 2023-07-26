@@ -59,7 +59,7 @@ const TakeTestIQ = ({id} : TakeTestLayoutProps) => {
   }, [dispatch])
 
   const store = useSelector((state: RootState) => state.test.selectedTest)
-  console.log('selected test', store);
+  console.log('store selected test', store);
   const [value, setValue] = React.useState(0)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -69,7 +69,6 @@ const TakeTestIQ = ({id} : TakeTestLayoutProps) => {
   return (
     <TakeTestWrapper>
       <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex' }}>
-        <Box>TakeTest with ID {id}</Box>
         <Tabs
           orientation='vertical'
           value={value}
@@ -77,16 +76,10 @@ const TakeTestIQ = ({id} : TakeTestLayoutProps) => {
           aria-label='Vertical tabs example'
           sx={{ borderRight: 1, borderColor: 'divider' }}
         >
-          <Tab label='Question 01: ' {...a11yProps(0)} />
-          <Tab label='Question 02: ' {...a11yProps(1)} />
-          <Tab label='Question 03: ' {...a11yProps(2)} />
-          <Tab label='Question 04: ' {...a11yProps(3)} />
-          <Tab label='Question 05: ' {...a11yProps(4)} />
-          <Tab label='Question 06: ' {...a11yProps(5)} />
-          <Tab label='Question 07: ' {...a11yProps(6)} />
-          <Tab label='Question 08: ' {...a11yProps(7)} />
-          <Tab label='Question 09: ' {...a11yProps(8)} />
-          <Tab label='Question 10: ' {...a11yProps(9)} />
+          {/* @ts-ignore */}
+          {store && store.questions && store.questions.map((item: any) => (
+          <Tab key={item.id} label={item.questionText} {...a11yProps(item.id)} />
+          ))}
         </Tabs>
         <TabPanel value={value} index={0}>
           Content of Question 01
