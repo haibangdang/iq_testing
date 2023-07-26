@@ -78,9 +78,6 @@ const defaultColumns: GridColDef[] = [
   }
 ]
 
-/* eslint-disable */
-/* eslint-enable */
-
 const TestType = () => {
 
   // ** State
@@ -97,7 +94,7 @@ const TestType = () => {
 
   // Access the test data from the Redux store
   const store = useSelector((state: RootState) => state.test);
-  console.log('store', store);
+  console.log('store', store.test);
 
 
   const columns: GridColDef[] = [
@@ -128,8 +125,6 @@ const TestType = () => {
             <DataGrid
               autoHeight
               pagination
-              // eslint-disable-next-line
-              // @ts-ignore
               rows={store.test}
               columns={columns}
               checkboxSelection

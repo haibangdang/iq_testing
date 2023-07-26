@@ -79,7 +79,7 @@ export const selectedTest = createAsyncThunk('selectedTest',async (id: number|un
 export const testSlice = createSlice({
   name: 'appChat',
   initialState: {
-    test: {},
+    test: [],
     selectedTest: null
   },
   reducers: {},
