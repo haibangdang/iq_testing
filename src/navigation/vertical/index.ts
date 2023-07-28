@@ -73,18 +73,38 @@ const navigation = (): VerticalNavItemsType => {
     //   ]
     // },
     {
-      path: '/test',
       icon: 'fluent-mdl2:test-auto-solid',
-      title: 'Tests'
+      title: 'Test Management',
+      children: [
+        {
+          title: 'Create Test',
+          path: '/create-test'
+        },
+        {
+          title: 'Manage Tests',
+          path: '/manage-test'
+        }
+      ]
     },
     {
-      title: 'Take IQ Test',
-      path: '/test-type',
       icon: 'bx:test-tube',
-      badgeContent: 'free',
-      badgeColor: 'error',
+      title: 'Test IQ',
       action: 'read',
-      subject: 'acl-page'
+      subject: 'acl-page',
+      children: [
+        {
+          title: 'Take Test',
+          path: '/take-test',
+          action: 'read',
+          subject: 'acl-page'
+        },
+        {
+          title: 'Test History',
+          path: '/test-history',
+          action: 'read',
+          subject: 'acl-page'
+        }
+      ]
     },
 
     // {
