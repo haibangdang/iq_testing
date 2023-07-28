@@ -1,8 +1,6 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Link from 'next/link'
-import HistoryTable from 'src/views/components/test/HistoryTable'
+import HistoryTable from 'src/views/components/test-history/HistoryTable'
 
 const TestPage = () => {
   return (
@@ -12,11 +10,8 @@ const TestPage = () => {
           <h1>Test History</h1>
           <Box>VIew Your Test History</Box>
         </Box>
-        <Box component={Link} href='/create-test'>
-          <Button variant='contained'>Add</Button>
-        </Box>
       </Box>
-      <Box sx={{ mt: 4}}>
+      <Box sx={{ mt: 4 }}>
         <HistoryTable />
       </Box>
     </Box>

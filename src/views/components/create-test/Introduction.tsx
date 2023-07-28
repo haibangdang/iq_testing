@@ -5,14 +5,15 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import InputLabel from '@mui/material/InputLabel'
+
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { TimePicker } from '@mui/x-date-pickers/TimePicker'
+// import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
+// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+// import { TimePicker } from '@mui/x-date-pickers/TimePicker'
 
 import Editor from './Editor'
 import Answers from './Answers'
@@ -54,6 +55,7 @@ function a11yProps(index: number) {
 export default function Introduction() {
   const [data, setData] = useState([])
 
+  console.log('data', data)
   useEffect(() => {
     fetchData()
   }, [])
@@ -150,13 +152,13 @@ export default function Introduction() {
               </Select>
             </FormControl>
           </Box>
-          <Box>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+          {/* <Box>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DemoContainer components={['TimePicker']}>
                 <TimePicker label='Basic time picker' />
               </DemoContainer>
             </LocalizationProvider>
-          </Box>
+          </Box> */}
         </Grid>
       </Grid>
     </Box>
