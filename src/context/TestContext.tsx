@@ -7,6 +7,8 @@ interface ITestContext {
   handleSetCorrectAnswer: (questionIndex: number, answerIndex: number) => void
   handleUpdateQuestionText: (questionIndex: number, newText: string) => void
   handleAnswerChange: (questionIndex: number, answerIndex: number, newAnswer: string) => void
+  handleRemoveAnswer: (questionIndex: number, answerIndex: number) => void
+  handleRemoveQuestion: (questionIndex: number) => void
 }
 
 const TestContext = createContext<ITestContext>({
@@ -25,6 +27,13 @@ const TestContext = createContext<ITestContext>({
   },
   handleAnswerChange: () => {
     throw new Error('handleAnswerChange function must be overridden')
+  },
+  handleRemoveAnswer: () => {
+    throw new Error('handleRemoveAnswer function must be overridden')
+  },
+  handleRemoveQuestion: () => {
+    // Add this
+    throw new Error('handleRemoveQuestion function must be overridden')
   }
 })
 
@@ -107,6 +116,37 @@ const TestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     })
   }
 
+  const handleRemoveAnswer = (questionIndex: number, answerIndex: number) => {
+    setTest(prevTest => {
+      const newTest = [...prevTest]
+      newTest[questionIndex].answers.splice(answerIndex, 1)
+      if (newTest[questionIndex].correctAnswer === answerIndex) {
+        newTest[questionIndex].correctAnswer = -1
+      } else if (newTest[questionIndex].correctAnswer > answerIndex) {
+        newTest[questionIndex].correctAnswer -= 1
+      }
+
+      return newTest
+    })
+  }
+
+  const handleRemoveQuestion = (questionIndex: number) => {
+    // Display a confirmation dialog
+    if (window.confirm('Are you sure you want to delete this question?')) {
+      // If the user clicked "OK", then proceed with the deletion
+      setTest(prevTest => {
+        let newTest = [...prevTest]
+        newTest.splice(questionIndex, 1)
+
+        newTest = newTest.map((question, i) => {
+          return { ...question, questionName: `Question ${i + 1}` }
+        })
+
+        return newTest
+      })
+    }
+  }
+
   const value = {
     test,
     setTest,
@@ -114,7 +154,9 @@ const TestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     handleSetCorrectAnswer,
     handleUpdateQuestionText,
     handleAddQuestion,
-    handleAnswerChange
+    handleAnswerChange,
+    handleRemoveAnswer,
+    handleRemoveQuestion
   }
 
   return <TestContext.Provider value={value}>{children}</TestContext.Provider>

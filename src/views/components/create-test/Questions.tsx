@@ -12,7 +12,8 @@ interface QuestionProps {
 }
 
 const Question: React.FC<QuestionProps> = ({ index }) => {
-  const { test, handleAddAnswer, handleSetCorrectAnswer, handleAnswerChange } = useContext(TestContext)
+  const { test, handleAddAnswer, handleSetCorrectAnswer, handleAnswerChange, handleRemoveAnswer } =
+    useContext(TestContext)
   const question = test[index]
 
   const handleAddAnswerClick = () => {
@@ -21,6 +22,10 @@ const Question: React.FC<QuestionProps> = ({ index }) => {
 
   const handleListItemClick = (answerIndex: number) => {
     handleSetCorrectAnswer(index, answerIndex)
+  }
+
+  const handleRemoveAnswerWrapper = (answerIndex: number) => {
+    handleRemoveAnswer(index, answerIndex)
   }
 
   const modules: Modules = {
@@ -60,6 +65,7 @@ const Question: React.FC<QuestionProps> = ({ index }) => {
           handleListItemClick={handleListItemClick}
           handleAddAnswer={handleAddAnswerClick}
           handleAnswerChange={handleAnswerChangeWrapper}
+          handleRemoveAnswer={handleRemoveAnswerWrapper}
         />
       </Grid>
     </Grid>

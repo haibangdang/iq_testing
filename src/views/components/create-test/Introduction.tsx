@@ -11,6 +11,25 @@ import Select, { SelectChangeEvent } from '@mui/material/Select'
 import { TestContext } from 'src/context/TestContext'
 import Question from './Questions'
 
+// import { TimeField } from '@mui/x-date-pickers/TimeField'
+import dayjs, { Dayjs } from 'dayjs'
+
+import { TimePicker } from '@mui/x-date-pickers/TimePicker'
+
+// import { DemoItem } from '@mui/x-date-pickers/internals/demo'
+
+// import DesktopTimePicker from '@mui/lab/DesktopTimePicker'
+
+import TextField from '@mui/material/TextField'
+
+// import { TextFieldProps } from '@mui/material'
+
+// ** MUI Imports
+import Button from '@mui/material/Button'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
 interface TabPanelProps {
   children?: React.ReactNode
   index: number
@@ -45,9 +64,13 @@ function a11yProps(index: number) {
 }
 
 export default function Introduction() {
-  const { test, setTest } = useContext(TestContext)
+  const { test, setTest, handleRemoveQuestion } = useContext(TestContext)
 
   const [data, setData] = useState([])
+
+  // const [time, setTime] = useState<Date | null>(new Date())
+
+  const [difficulty, setDifficulty] = useState('')
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
@@ -90,6 +113,10 @@ export default function Introduction() {
 
   const [category, setCategory] = React.useState('')
 
+  const [description, setDescription] = useState('')
+
+  const [selectedTime, setSelectedTime] = React.useState<Dayjs | null>(dayjs('2022-04-17T15:30'))
+
   const handleChangeSelect = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string)
   }
@@ -108,7 +135,16 @@ export default function Introduction() {
   return (
     <Box>
       <Box>Introduction:</Box>
-
+      <TextField
+        multiline
+        maxRows={4}
+        fullWidth
+        sx={{ height: '150px' }}
+        value={description}
+        label='Description'
+        onChange={event => setDescription(event.target.value)}
+        id='textarea-outlined-controlled'
+      />
       <Grid container spacing={0} sx={{ bgcolor: 'background.paper' }}>
         <Grid item xs={9}>
           <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex' }}>
@@ -120,7 +156,24 @@ export default function Introduction() {
               sx={{ borderRight: 1, borderColor: 'divider' }}
             >
               {test.map((question, index) => (
-                <Tab key={index} label={question.questionName} {...a11yProps(index)} />
+                <Tab
+                  key={index}
+                  label={
+                    <>
+                      {question.questionName}
+                      {/* <button onClick={() => handleRemoveQuestion(index)}>Remove</button> */}
+                      <Button
+                        variant='contained'
+                        color='secondary'
+                        startIcon={<Icon icon='mdi:delete-outline' />}
+                        onClick={() => handleRemoveQuestion(index)}
+                      >
+                        Delete
+                      </Button>
+                    </>
+                  }
+                  {...a11yProps(index)}
+                />
               ))}
               <Tab label='Add New' onClick={handleAddQuestion} />
             </Tabs>
@@ -133,23 +186,55 @@ export default function Introduction() {
         </Grid>
         <Grid item xs={3}>
           <Box sx={{ minWidth: 220, mt: 4, mr: 2 }}>
-            <FormControl fullWidth>
-              <InputLabel id='demo-simple-select-label'>Category</InputLabel>
-              <Select
-                labelId='demo-simple-select-label'
-                id='demo-simple-select'
-                value={category}
-                label='Age'
-                onChange={handleChangeSelect}
-              >
-                {data &&
-                  data.map((item: any) => (
-                    <MenuItem key={item.id} value={item.name}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
+            <Box sx={{ mb: 2 }}>
+              <FormControl fullWidth>
+                <InputLabel id='demo-simple-select-label'>Category</InputLabel>
+                <Select
+                  labelId='demo-simple-select-label'
+                  id='demo-simple-select'
+                  value={category}
+                  label='Age'
+                  onChange={handleChangeSelect}
+                >
+                  {data &&
+                    data.map((item: any) => (
+                      <MenuItem key={item.id} value={item.name}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Box sx={{ mb: 2 }}>
+              <FormControl fullWidth>
+                <TimePicker
+                  label='Time limit'
+                  views={['minutes', 'seconds']}
+                  format='mm:ss'
+                  value={selectedTime}
+                  onChange={newValue => {
+                    setSelectedTime(newValue)
+                  }}
+                />
+              </FormControl>
+            </Box>
+
+            <Box sx={{ mb: 2 }}>
+              <FormControl fullWidth>
+                <InputLabel id='difficulty-select-label'>Difficulty</InputLabel>
+                <Select
+                  labelId='difficulty-select-label'
+                  id='difficulty-select'
+                  value={difficulty}
+                  label='Difficulty'
+                  onChange={e => setDifficulty(e.target.value)}
+                >
+                  <MenuItem value={'easy'}>Easy</MenuItem>
+                  <MenuItem value={'medium'}>Medium</MenuItem>
+                  <MenuItem value={'hard'}>Hard</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
           </Box>
         </Grid>
       </Grid>

@@ -5,6 +5,8 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import TextField from '@mui/material/TextField'
 import ClickAwayListener from '@mui/material/ClickAwayListener'
+import IconButton from '@mui/material/IconButton' // <-- Import this
+import DeleteIcon from '@mui/icons-material/Delete' // <-- Import this
 
 interface AnswersProps {
   index: number
@@ -13,6 +15,7 @@ interface AnswersProps {
   handleListItemClick: (index: number) => void
   handleAddAnswer: () => void
   handleAnswerChange: (answerIndex: number, newAnswer: string) => void
+  handleRemoveAnswer: (answerIndex: number) => void // <-- Add this
 }
 
 export default function Answers({
@@ -20,7 +23,8 @@ export default function Answers({
   correctAnswer,
   handleListItemClick,
   handleAddAnswer,
-  handleAnswerChange
+  handleAnswerChange,
+  handleRemoveAnswer // <-- Add this
 }: AnswersProps) {
   if (!answers || !Number.isInteger(correctAnswer)) {
     return null
@@ -37,9 +41,12 @@ export default function Answers({
             <ListItemButton selected={correctAnswer === index} onClick={() => handleListItemClick(index)}>
               <ListItemText
                 primary={correctAnswer === index ? ' (Correct Answer)' : 'Select as Correct'}
-                sx={{ color: correctAnswer === index ? 'green' : 'black' }} // Change color based on the correctAnswer
+                sx={{ color: correctAnswer === index ? 'green' : 'black' }}
               />
             </ListItemButton>
+            <IconButton onClick={() => handleRemoveAnswer(index)}>
+              <DeleteIcon />
+            </IconButton>
           </Box>
         ))}
         <ListItemButton onClick={handleAddAnswer}>
