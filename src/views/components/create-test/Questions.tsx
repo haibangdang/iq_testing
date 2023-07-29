@@ -12,7 +12,7 @@ interface QuestionProps {
 }
 
 const Question: React.FC<QuestionProps> = ({ index }) => {
-  const { test, handleAddAnswer, handleSetCorrectAnswer } = useContext(TestContext)
+  const { test, handleAddAnswer, handleSetCorrectAnswer, handleAnswerChange } = useContext(TestContext)
   const question = test[index]
 
   const handleAddAnswerClick = () => {
@@ -42,6 +42,10 @@ const Question: React.FC<QuestionProps> = ({ index }) => {
     ]
   }
 
+  const handleAnswerChangeWrapper = (answerIndex: number, newAnswer: string) => {
+    handleAnswerChange(index, answerIndex, newAnswer)
+  }
+
   return (
     <Grid container spacing={0} sx={{ bgcolor: 'background.paper' }}>
       <Grid item xs={12} md={12}>
@@ -55,6 +59,7 @@ const Question: React.FC<QuestionProps> = ({ index }) => {
           correctAnswer={question.correctAnswer}
           handleListItemClick={handleListItemClick}
           handleAddAnswer={handleAddAnswerClick}
+          handleAnswerChange={handleAnswerChangeWrapper}
         />
       </Grid>
     </Grid>

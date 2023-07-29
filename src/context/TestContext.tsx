@@ -6,6 +6,7 @@ interface ITestContext {
   handleAddAnswer: (questionIndex: number) => void
   handleSetCorrectAnswer: (questionIndex: number, answerIndex: number) => void
   handleUpdateQuestionText: (questionIndex: number, newText: string) => void
+  handleAnswerChange: (questionIndex: number, answerIndex: number, newAnswer: string) => void
 }
 
 const TestContext = createContext<ITestContext>({
@@ -21,6 +22,9 @@ const TestContext = createContext<ITestContext>({
   },
   handleUpdateQuestionText: () => {
     throw new Error('handleUpdateQuestionText function must be overridden')
+  },
+  handleAnswerChange: () => {
+    throw new Error('handleAnswerChange function must be overridden')
   }
 })
 
@@ -38,11 +42,16 @@ const TestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const handleAddAnswer = (questionIndex: number) => {
     setTest(prevTest => {
       const newTest = [...prevTest]
-      const newQuestion = {
-        ...newTest[questionIndex],
-        answers: [...newTest[questionIndex].answers, `Answer ${newTest[questionIndex].answers.length + 1}`]
+
+      if (newTest[questionIndex].answers.length < 10) {
+        const newQuestion = {
+          ...newTest[questionIndex],
+          answers: [...newTest[questionIndex].answers, `Answer ${newTest[questionIndex].answers.length + 1}`]
+        }
+        newTest[questionIndex] = newQuestion
+      } else {
+        alert('You can add up to 10 answers only.')
       }
-      newTest[questionIndex] = newQuestion
 
       return newTest
     })
@@ -78,7 +87,35 @@ const TestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     ])
   }
 
-  const value = { test, setTest, handleAddAnswer, handleSetCorrectAnswer, handleUpdateQuestionText, handleAddQuestion }
+  const handleAnswerChange = (questionIndex: number, answerIndex: number, newAnswer: string) => {
+    setTest(prevTest => {
+      const newTest = [...prevTest]
+      if (newTest[questionIndex] === undefined) {
+        console.error(`Question with index ${questionIndex} does not exist`)
+
+        return prevTest
+      }
+      if (newTest[questionIndex].answers[answerIndex] === undefined) {
+        console.error(`Answer with index ${answerIndex} does not exist for question ${questionIndex}`)
+
+        return prevTest
+      }
+
+      newTest[questionIndex].answers[answerIndex] = newAnswer
+
+      return newTest
+    })
+  }
+
+  const value = {
+    test,
+    setTest,
+    handleAddAnswer,
+    handleSetCorrectAnswer,
+    handleUpdateQuestionText,
+    handleAddQuestion,
+    handleAnswerChange
+  }
 
   return <TestContext.Provider value={value}>{children}</TestContext.Provider>
 }
