@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Grid, Box } from '@mui/material'
+import { Grid } from '@mui/material'
 import Editor from './Editor'
 import Answers from './Answers'
 import { TestContext } from 'src/context/TestContext'
