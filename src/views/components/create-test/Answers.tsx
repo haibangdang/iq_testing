@@ -3,7 +3,8 @@ import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
-import TextField from '@mui/material/TextField' // <-- Import this
+import TextField from '@mui/material/TextField'
+import ClickAwayListener from '@mui/material/ClickAwayListener'
 
 interface AnswersProps {
   index: number
@@ -11,7 +12,7 @@ interface AnswersProps {
   correctAnswer: number | null
   handleListItemClick: (index: number) => void
   handleAddAnswer: () => void
-  handleAnswerChange: (answerIndex: number, newAnswer: string) => void // <-- Add this
+  handleAnswerChange: (answerIndex: number, newAnswer: string) => void
 }
 
 export default function Answers({
@@ -29,13 +30,17 @@ export default function Answers({
     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
       <List component='nav' aria-label='secondary mailbox folder'>
         {answers.map((answer, index) => (
-          <ListItemButton key={index} selected={correctAnswer === index} onClick={() => handleListItemClick(index)}>
-            <TextField
-              value={answer}
-              onChange={e => handleAnswerChange(index, e.target.value)} // <-- Handle change
-            />
-            <ListItemText primary={correctAnswer === index ? ' (Correct Answer)' : ''} />
-          </ListItemButton>
+          <Box key={index} sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <ClickAwayListener onClickAway={() => handleAnswerChange(index, answer)}>
+              <TextField value={answer} onChange={e => handleAnswerChange(index, e.target.value)} fullWidth />
+            </ClickAwayListener>
+            <ListItemButton selected={correctAnswer === index} onClick={() => handleListItemClick(index)}>
+              <ListItemText
+                primary={correctAnswer === index ? ' (Correct Answer)' : 'Select as Correct'}
+                sx={{ color: correctAnswer === index ? 'green' : 'black' }} // Change color based on the correctAnswer
+              />
+            </ListItemButton>
+          </Box>
         ))}
         <ListItemButton onClick={handleAddAnswer}>
           <ListItemText primary='Add new' />
