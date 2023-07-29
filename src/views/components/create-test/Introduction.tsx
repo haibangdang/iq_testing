@@ -1,19 +1,15 @@
-import * as React from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import InputLabel from '@mui/material/InputLabel'
-
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import { TestContext } from 'src/context/TestContext'
-
-import Editor from './Editor'
-import Answers from './Answers'
-import { useEffect, useState, useContext } from 'react'
+import Question from './Questions'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -53,17 +49,9 @@ export default function Introduction() {
 
   const [data, setData] = useState([])
 
-  // const [answers, setAnswers] = useState<string[]>(['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'])
-  // const [correctAnswer, setCorrectAnswer] = useState<number>(0)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
 
-  const handleAddQuestion = () => {
-    setTest(prevTest => [
-      ...prevTest,
-      { questionText: `Question ${prevTest.length + 1}`, answers: [], correctAnswer: -1 }
-    ])
-  }
-
-  console.log('data', data)
   useEffect(() => {
     fetchData()
   }, [])
@@ -86,6 +74,20 @@ export default function Introduction() {
       console.error('Error fetching data:', error)
     }
   }
+
+  const handleAddQuestion = () => {
+    const currentLength = test.length
+    setTest(prevTest => [
+      ...prevTest,
+      {
+        questionName: `Question ${currentLength + 1}`,
+        questionText: `Question ${currentLength + 1}`,
+        answers: [],
+        correctAnswer: -1
+      }
+    ])
+  }
+
   const [category, setCategory] = React.useState('')
 
   const handleChangeSelect = (event: SelectChangeEvent) => {
@@ -96,6 +98,11 @@ export default function Introduction() {
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
+  }
+
+  const handleListItemClick = (index: number) => {
+    setValue(index) // Switch tabs to the selected question
+    setCurrentQuestionIndex(index) // Select the question
   }
 
   return (
@@ -113,42 +120,13 @@ export default function Introduction() {
               sx={{ borderRight: 1, borderColor: 'divider' }}
             >
               {test.map((question, index) => (
-                <Tab key={index} label={question.questionText} {...a11yProps(index)} />
+                <Tab key={index} label={question.questionName} {...a11yProps(index)} />
               ))}
               <Tab label='Add New' onClick={handleAddQuestion} />
             </Tabs>
             {test.map((question, index) => (
               <TabPanel key={index} value={value} index={index}>
-                <Grid container spacing={0} sx={{ bgcolor: 'background.paper' }}>
-                  <Grid item xs={12} md={12}>
-                    <Editor />
-                  </Grid>
-                  <Grid item xs={12} md={12}>
-                    <Answers
-                      index={index}
-                      answers={test[index].answers}
-                      correctAnswer={test[index].correctAnswer}
-                      handleListItemClick={(answerIndex: number) => {
-                        const newTest = [...test]
-                        newTest[index].correctAnswer = answerIndex
-                        setTest(newTest)
-                      }}
-                      handleAddAnswer={() => {
-                        const newTest = [...test]
-                        if (newTest[index].answers.length < 10) {
-                          // Add this condition
-                          newTest[index].answers = [
-                            ...newTest[index].answers,
-                            `Answer ${newTest[index].answers.length + 1}`
-                          ]
-                          setTest(newTest)
-                        } else {
-                          alert('You can add up to 10 answers')
-                        }
-                      }}
-                    />
-                  </Grid>
-                </Grid>
+                <Question index={index} handleListItemClick={handleListItemClick} />
               </TabPanel>
             ))}
           </Box>

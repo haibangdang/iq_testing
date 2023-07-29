@@ -5,6 +5,7 @@ interface ITestContext {
   setTest: React.Dispatch<React.SetStateAction<any[]>>
   handleAddAnswer: (questionIndex: number) => void
   handleSetCorrectAnswer: (questionIndex: number, answerIndex: number) => void
+  handleUpdateQuestionText: (questionIndex: number, newText: string) => void
 }
 
 const TestContext = createContext<ITestContext>({
@@ -17,12 +18,16 @@ const TestContext = createContext<ITestContext>({
   },
   handleSetCorrectAnswer: () => {
     throw new Error('handleSetCorrectAnswer function must be overridden')
+  },
+  handleUpdateQuestionText: () => {
+    throw new Error('handleUpdateQuestionText function must be overridden')
   }
 })
 
 const TestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const [test, setTest] = useState<any[]>([
     {
+      questionName: 'Question 1',
       questionText: 'Question 1',
       answers: [],
       correctAnswer: -1
@@ -52,7 +57,28 @@ const TestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     })
   }
 
-  const value = { test, setTest, handleAddAnswer, handleSetCorrectAnswer }
+  const handleUpdateQuestionText = (questionIndex: number, newText: string) => {
+    setTest(prevTest => {
+      const newTest = [...prevTest]
+      newTest[questionIndex].questionText = newText
+
+      return newTest
+    })
+  }
+
+  const handleAddQuestion = () => {
+    setTest(prevTest => [
+      ...prevTest,
+      {
+        questionName: `Question ${prevTest.length + 1}`, // thêm questionName
+        questionText: `Question ${prevTest.length + 1}`,
+        answers: [],
+        correctAnswer: -1
+      }
+    ])
+  }
+
+  const value = { test, setTest, handleAddAnswer, handleSetCorrectAnswer, handleUpdateQuestionText, handleAddQuestion }
 
   return <TestContext.Provider value={value}>{children}</TestContext.Provider>
 }

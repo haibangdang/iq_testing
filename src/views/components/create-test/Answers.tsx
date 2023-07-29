@@ -51,9 +51,6 @@ export default function Answers({ answers, correctAnswer, handleListItemClick, h
         <ListItemButton onClick={handleAddAnswer}>
           <ListItemText primary='Add new' />
         </ListItemButton>
-        {/* <ListItemButton onClick={handleSubmit}>
-          <ListItemText primary='Submit' />
-        </ListItemButton> */}
       </List>
     </Box>
   )

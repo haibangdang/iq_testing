@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
+
+// import React, { useContext, useState } from 'react'
 import { Grid } from '@mui/material'
-import Editor from './Editor'
+import Editor, { Modules } from './Editor'
 import Answers from './Answers'
 import { TestContext } from 'src/context/TestContext'
 
@@ -21,10 +23,30 @@ const Question: React.FC<QuestionProps> = ({ index }) => {
     handleSetCorrectAnswer(index, answerIndex)
   }
 
+  const modules: Modules = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      ['blockquote', 'code-block'],
+      [{ header: 1 }, { header: 2 }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }],
+      [{ indent: '-1' }, { indent: '+1' }],
+      [{ direction: 'rtl' }],
+      [{ size: ['small', false, 'large', 'huge'] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ color: [] }, { background: [] }],
+      [{ font: [] }],
+      [{ align: [] }],
+      ['clean'],
+      ['link', 'image', 'video']
+    ]
+  }
+
   return (
     <Grid container spacing={0} sx={{ bgcolor: 'background.paper' }}>
       <Grid item xs={12} md={12}>
-        <Editor />
+        {/* <Editor initialValue={editorContent} onChange={handleEditorChange} modules={modules} /> */}
+        <Editor initialValue={question.questionText} modules={modules} index={index} />
       </Grid>
       <Grid item xs={12} md={12}>
         <Answers
@@ -32,7 +54,7 @@ const Question: React.FC<QuestionProps> = ({ index }) => {
           answers={question.answers}
           correctAnswer={question.correctAnswer}
           handleListItemClick={handleListItemClick}
-          handleAddAnswer={handleAddAnswerClick} // Use the function that calls handleAddAnswer with the current question index
+          handleAddAnswer={handleAddAnswerClick}
         />
       </Grid>
     </Grid>
