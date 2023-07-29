@@ -9,9 +9,15 @@ interface ITestContext {
 
 const TestContext = createContext<ITestContext>({
   test: [],
-  setTest: () => {},
-  handleAddAnswer: () => {},
-  handleSetCorrectAnswer: () => {}
+  setTest: () => {
+    throw new Error('setTest function must be overridden')
+  },
+  handleAddAnswer: () => {
+    throw new Error('handleAddAnswer function must be overridden')
+  },
+  handleSetCorrectAnswer: () => {
+    throw new Error('handleSetCorrectAnswer function must be overridden')
+  }
 })
 
 const TestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
@@ -32,6 +38,7 @@ const TestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
         answers: [...newTest[questionIndex].answers, `Answer ${newTest[questionIndex].answers.length + 1}`]
       }
       newTest[questionIndex] = newQuestion
+
       return newTest
     })
   }
@@ -40,6 +47,7 @@ const TestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     setTest(prevTest => {
       const newTest = [...prevTest]
       newTest[questionIndex].correctAnswer = answerIndex
+
       return newTest
     })
   }

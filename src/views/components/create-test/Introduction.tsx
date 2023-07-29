@@ -13,7 +13,6 @@ import { TestContext } from 'src/context/TestContext'
 
 import Editor from './Editor'
 import Answers from './Answers'
-import Questions from './Questions'
 import { useEffect, useState, useContext } from 'react'
 
 interface TabPanelProps {
@@ -54,8 +53,8 @@ export default function Introduction() {
 
   const [data, setData] = useState([])
 
-  const [answers, setAnswers] = useState<string[]>(['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'])
-  const [correctAnswer, setCorrectAnswer] = useState<number>(0)
+  // const [answers, setAnswers] = useState<string[]>(['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'])
+  // const [correctAnswer, setCorrectAnswer] = useState<number>(0)
 
   const handleAddQuestion = () => {
     setTest(prevTest => [
@@ -114,12 +113,12 @@ export default function Introduction() {
               sx={{ borderRight: 1, borderColor: 'divider' }}
             >
               {test.map((question, index) => (
-                <Tab label={question.questionText} {...a11yProps(index)} />
+                <Tab key={index} label={question.questionText} {...a11yProps(index)} />
               ))}
               <Tab label='Add New' onClick={handleAddQuestion} />
             </Tabs>
             {test.map((question, index) => (
-              <TabPanel value={value} index={index}>
+              <TabPanel key={index} value={value} index={index}>
                 <Grid container spacing={0} sx={{ bgcolor: 'background.paper' }}>
                   <Grid item xs={12} md={12}>
                     <Editor />

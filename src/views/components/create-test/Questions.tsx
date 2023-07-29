@@ -6,7 +6,6 @@ import { TestContext } from 'src/context/TestContext'
 
 interface QuestionProps {
   index: number
-  //   handleAddAnswer: () => void
   handleListItemClick: (index: number) => void
 }
 
