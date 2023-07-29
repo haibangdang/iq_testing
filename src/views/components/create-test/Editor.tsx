@@ -8,7 +8,10 @@ import {
   RichTextEditorComponent,
   Toolbar
 } from '@syncfusion/ej2-react-richtexteditor'
+import { registerLicense } from '@syncfusion/ej2-base'
+
 import { Box } from '@mui/material'
+registerLicense('Ngo9BigBOggjHTQxAR8/V1NGaF1cWGhBYVFxWmFZfV1gcV9FYlZSR2Y/P1ZhSXxQdkJhUX5Zc3JWQ2FYVEA=')
 
 const Editor = () => (
   <Box

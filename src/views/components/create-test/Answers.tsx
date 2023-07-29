@@ -3,32 +3,55 @@ import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
+import { useState } from 'react'
 
-export default function Answers() {
-  const [selectedIndex, setSelectedIndex] = React.useState(1)
+// Answers.tsx
 
-  const handleListItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, index: number) => {
-    setSelectedIndex(index)
+interface AnswersProps {
+  index: number
+  answers: string[]
+  correctAnswer: number | null
+  handleListItemClick: (index: number) => void
+  handleAddAnswer: () => void
+}
+
+export default function Answers({ answers, correctAnswer, handleListItemClick, handleAddAnswer }: AnswersProps) {
+  // const [answers, setAnswers] = useState<string[]>(['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'])
+  // const [correctAnswer, setCorrectAnswer] = useState<number | null>(null)
+
+  // const handleListItemClick = (index: number) => {
+  //   setCorrectAnswer(index)
+  // }
+
+  // const handleAddAnswer = () => {
+  //   if (answers.length < 10) {
+  //     setAnswers(prevAnswers => [...prevAnswers, `Answer ${prevAnswers.length + 1}`])
+  //   } else {
+  //     alert('You can add up to 10 answers')
+  //   }
+  // }
+
+  // const handleSubmit = () => {
+  //   // handle your submit logic here
+  //   // you can access your answers using `answers` state and correct answer using `correctAnswer` state
+  // }
+  if (!answers || !Number.isInteger(correctAnswer)) {
+    return null
   }
-
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
       <List component='nav' aria-label='secondary mailbox folder'>
-        <ListItemButton selected={selectedIndex === 0} onClick={event => handleListItemClick(event, 0)}>
-          <ListItemText primary='Answer 1:' />
-        </ListItemButton>
-        <ListItemButton selected={selectedIndex === 1} onClick={event => handleListItemClick(event, 1)}>
-          <ListItemText primary='Answer 2: (Correct Answer)' />
-        </ListItemButton>
-        <ListItemButton selected={selectedIndex === 2} onClick={event => handleListItemClick(event, 2)}>
-          <ListItemText primary='Answer 3:' />
-        </ListItemButton>
-        <ListItemButton selected={selectedIndex === 3} onClick={event => handleListItemClick(event, 3)}>
-          <ListItemText primary='Answer 4: ' />
-        </ListItemButton>
-        <ListItemButton onClick={event => handleListItemClick(event, 3)}>
+        {answers.map((answer, index) => (
+          <ListItemButton selected={correctAnswer === index} onClick={() => handleListItemClick(index)}>
+            <ListItemText primary={answer + (correctAnswer === index ? ' (Correct Answer)' : '')} />
+          </ListItemButton>
+        ))}
+        <ListItemButton onClick={handleAddAnswer}>
           <ListItemText primary='Add new' />
         </ListItemButton>
+        {/* <ListItemButton onClick={handleSubmit}>
+          <ListItemText primary='Submit' />
+        </ListItemButton> */}
       </List>
     </Box>
   )

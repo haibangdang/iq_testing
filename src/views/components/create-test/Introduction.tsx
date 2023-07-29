@@ -9,15 +9,12 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
-
-// import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
-// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-// import { TimePicker } from '@mui/x-date-pickers/TimePicker'
+import { TestContext } from 'src/context/TestContext'
 
 import Editor from './Editor'
 import Answers from './Answers'
-import { useEffect, useState } from 'react'
+import Questions from './Questions'
+import { useEffect, useState, useContext } from 'react'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -53,7 +50,19 @@ function a11yProps(index: number) {
 }
 
 export default function Introduction() {
+  const { test, setTest } = useContext(TestContext)
+
   const [data, setData] = useState([])
+
+  const [answers, setAnswers] = useState<string[]>(['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'])
+  const [correctAnswer, setCorrectAnswer] = useState<number>(0)
+
+  const handleAddQuestion = () => {
+    setTest(prevTest => [
+      ...prevTest,
+      { questionText: `Question ${prevTest.length + 1}`, answers: [], correctAnswer: -1 }
+    ])
+  }
 
   console.log('data', data)
   useEffect(() => {
@@ -76,8 +85,6 @@ export default function Introduction() {
       setData(data)
     } catch (error) {
       console.error('Error fetching data:', error)
-
-      // You can handle the error state or display an error message here if needed
     }
   }
   const [category, setCategory] = React.useState('')
@@ -106,30 +113,45 @@ export default function Introduction() {
               aria-label='Vertical tabs example'
               sx={{ borderRight: 1, borderColor: 'divider' }}
             >
-              <Tab label='Question 1' {...a11yProps(0)} />
-              <Tab label='Question 2' {...a11yProps(1)} />
-              <Tab label='Add New' />
+              {test.map((question, index) => (
+                <Tab label={question.questionText} {...a11yProps(index)} />
+              ))}
+              <Tab label='Add New' onClick={handleAddQuestion} />
             </Tabs>
-            <TabPanel value={value} index={0}>
-              <Grid container spacing={0} sx={{ bgcolor: 'background.paper' }}>
-                <Grid item xs={12} md={12}>
-                  <Editor />
+            {test.map((question, index) => (
+              <TabPanel value={value} index={index}>
+                <Grid container spacing={0} sx={{ bgcolor: 'background.paper' }}>
+                  <Grid item xs={12} md={12}>
+                    <Editor />
+                  </Grid>
+                  <Grid item xs={12} md={12}>
+                    <Answers
+                      index={index}
+                      answers={test[index].answers}
+                      correctAnswer={test[index].correctAnswer}
+                      handleListItemClick={(answerIndex: number) => {
+                        const newTest = [...test]
+                        newTest[index].correctAnswer = answerIndex
+                        setTest(newTest)
+                      }}
+                      handleAddAnswer={() => {
+                        const newTest = [...test]
+                        if (newTest[index].answers.length < 10) {
+                          // Add this condition
+                          newTest[index].answers = [
+                            ...newTest[index].answers,
+                            `Answer ${newTest[index].answers.length + 1}`
+                          ]
+                          setTest(newTest)
+                        } else {
+                          alert('You can add up to 10 answers')
+                        }
+                      }}
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} md={12}>
-                  <Answers />
-                </Grid>
-              </Grid>
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              <Grid container spacing={0} sx={{ bgcolor: 'background.paper' }}>
-                <Grid item xs={12} md={12}>
-                  <Editor />
-                </Grid>
-                <Grid item xs={12} md={12}>
-                  <Answers />
-                </Grid>
-              </Grid>
-            </TabPanel>
+              </TabPanel>
+            ))}
           </Box>
         </Grid>
         <Grid item xs={3}>
@@ -152,13 +174,6 @@ export default function Introduction() {
               </Select>
             </FormControl>
           </Box>
-          {/* <Box>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DemoContainer components={['TimePicker']}>
-                <TimePicker label='Basic time picker' />
-              </DemoContainer>
-            </LocalizationProvider>
-          </Box> */}
         </Grid>
       </Grid>
     </Box>
