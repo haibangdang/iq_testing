@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { TestType } from 'src/types/apps/takeTestTypes'
+import TestDisplay from 'src/views/components/manage-test/TestDisplay'
 
 const TestDetail = () => {
   const router = useRouter()
@@ -36,14 +37,21 @@ const TestDetail = () => {
     return <div>Loading...</div>
   }
 
+  // return (
+  //   <div>
+  //     {/* Display the test details here */}
+  //     <h1>{test.testName}</h1>
+  //     <p>Difficulty Level: {test.difficultLevel}</p>
+  //     <p>Description: {test.description}</p>
+  //     <p>Total Questions: {test.totalQuestion}</p>
+  //     {/* You can add more information from the test object as needed */}
+  //   </div>
+  // )
+
   return (
     <div>
-      {/* Display the test details here */}
-      <h1>{test.testName}</h1>
-      <p>Difficulty Level: {test.difficultLevel}</p>
-      <p>Description: {test.description}</p>
-      <p>Total Questions: {test.totalQuestion}</p>
-      {/* You can add more information from the test object as needed */}
+      {/* Use the TestDisplay component to display test details */}
+      <TestDisplay test={test} />
     </div>
   )
 }

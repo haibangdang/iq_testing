@@ -49,7 +49,7 @@ const AnalyticsCongratulations = () => {
               <Box component='span' sx={{ fontWeight: 600 }}>
                 68%
               </Box>{' '}
-              😎 more sales today.
+              😎 more TESTS today.
             </Typography>
             <Typography sx={{ mb: 4.5 }} variant='body2'>
               Check your new badge in your profile.
