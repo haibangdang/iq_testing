@@ -1,3 +1,4 @@
+/* eslint-disable */
 // ** React Imports
 import { useState, useEffect, MouseEvent, useCallback } from 'react'
 
@@ -10,6 +11,7 @@ import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Menu from '@mui/material/Menu'
 import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import { styled } from '@mui/material/styles'
 import MenuItem from '@mui/material/MenuItem'
@@ -47,6 +49,7 @@ import { RootState, AppDispatch } from 'src/store'
 import { CardStatsType } from 'src/@fake-db/types'
 import { ThemeColor } from 'src/@core/layouts/types'
 import { UsersType } from 'src/types/apps/userTypes'
+import { TestType } from 'src/types/apps/takeTestTypes'
 import { CardStatsHorizontalProps } from 'src/@core/components/card-statistics/types'
 
 // ** Custom Table Components Imports
@@ -70,8 +73,12 @@ const userRoleObj: UserRoleType = {
   subscriber: { icon: 'mdi:account-outline', color: 'primary.main' }
 }
 
+// interface CellType {
+//   row: UsersType
+// }
+
 interface CellType {
-  row: UsersType
+  row: TestType
 }
 
 const userStatusObj: UserStatusType = {
@@ -175,19 +182,19 @@ const columns: GridColDef[] = [
   {
     flex: 0.2,
     minWidth: 230,
-    field: 'fullName',
-    headerName: 'User',
+    field: 'id',
+    headerName: 'TestID',
     renderCell: ({ row }: CellType) => {
-      const { fullName, username } = row
+      const { id } = row
 
       return (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          {renderClient(row)}
+          {/* {renderClient(row)} */}
           <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
-            <LinkStyled href='/apps/user/view/overview/'>{fullName}</LinkStyled>
-            <Typography noWrap variant='caption'>
-              {`@${username}`}
-            </Typography>
+            <LinkStyled href='/apps/user/view/overview/'>{id}</LinkStyled>
+            {/* <Typography noWrap variant='caption'>
+              {`@${testName}`}
+            </Typography> */}
           </Box>
         </Box>
       )
@@ -196,27 +203,27 @@ const columns: GridColDef[] = [
   {
     flex: 0.2,
     minWidth: 250,
-    field: 'email',
-    headerName: 'Email',
+    field: 'testName',
+    headerName: 'Test Name',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.email}
+          {row.testName}
         </Typography>
       )
     }
   },
   {
     flex: 0.15,
-    field: 'role',
+    field: 'Difficulty level',
     minWidth: 150,
-    headerName: 'Role',
+    headerName: 'Difficulty level',
     renderCell: ({ row }: CellType) => {
       return (
-        <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 3, color: userRoleObj[row.role].color } }}>
-          <Icon icon={userRoleObj[row.role].icon} fontSize={20} />
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          {/* <Icon icon={userRoleObj[row.role].icon} fontSize={20} /> */}
           <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
-            {row.role}
+            {row.difficultLevel}
           </Typography>
         </Box>
       )
@@ -225,30 +232,26 @@ const columns: GridColDef[] = [
   {
     flex: 0.15,
     minWidth: 120,
-    headerName: 'Plan',
-    field: 'currentPlan',
+    headerName: 'Description',
+    field: 'Description',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography variant='subtitle1' noWrap sx={{ textTransform: 'capitalize' }}>
-          {row.currentPlan}
+          {row.description}
         </Typography>
       )
     }
   },
   {
-    flex: 0.1,
-    minWidth: 110,
-    field: 'status',
-    headerName: 'Status',
+    flex: 0.15,
+    minWidth: 120,
+    headerName: 'Total questions',
+    field: 'totalQuestions',
     renderCell: ({ row }: CellType) => {
       return (
-        <CustomChip
-          skin='light'
-          size='small'
-          label={row.status}
-          color={userStatusObj[row.status]}
-          sx={{ textTransform: 'capitalize', '& .MuiChip-label': { lineHeight: '18px' } }}
-        />
+        <Typography variant='subtitle1' noWrap sx={{ textTransform: 'capitalize' }}>
+          {row.totalQuestion}
+        </Typography>
       )
     }
   },
@@ -271,20 +274,155 @@ const ManageTest = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>)
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
 
+  const [tests, setTests] = useState([])
+
+  // const testColumns = [
+  //   { field: 'id', headerName: 'ID', width: 70 },
+  //   { field: 'testName', headerName: 'Test name', width: 200 },
+  //   { field: 'testType', headerName: 'Test type', width: 200 },
+  //   { field: 'difficultLevel', headerName: 'Difficulty level', width: 150 },
+  //   { field: 'timeLimit', headerName: 'Time limit', width: 150 },
+  //   { field: 'description', headerName: 'Description', width: 250 },
+  //   { field: 'totalQuestion', headerName: 'Total questions', width: 150 },
+  //   {
+  //     field: 'actions',
+  //     headerName: 'Actions',
+  //     width: 150,
+  //     renderCell: params => (
+  //       <strong>
+  //         <Button variant='contained' color='primary' size='small' style={{ marginLeft: 16 }}>
+  //           Edit
+  //         </Button>
+  //       </strong>
+  //     )
+  //   }
+  // ]
+
+  const testColumns: GridColDef[] = [
+    {
+      flex: 0.2,
+      minWidth: 230,
+      field: 'id',
+      headerName: 'TestID',
+      renderCell: ({ row }: CellType) => {
+        const { id } = row
+
+        return (
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            {/* {renderClient(row)} */}
+            <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
+              {/* <LinkStyled href='/apps/user/view/overview/'>{id}</LinkStyled> */}
+              <LinkStyled href='/apps/test/view/${id}'>{id}</LinkStyled>
+              {/* <Typography noWrap variant='caption'>
+                {`@${testName}`}
+              </Typography> */}
+            </Box>
+          </Box>
+        )
+      }
+    },
+    {
+      flex: 0.2,
+      minWidth: 250,
+      field: 'testName',
+      headerName: 'Test Name',
+      renderCell: ({ row }: CellType) => {
+        return (
+          <Typography noWrap variant='body2'>
+            {row.testName}
+          </Typography>
+        )
+      }
+    },
+    {
+      flex: 0.15,
+      field: 'Difficulty level',
+      minWidth: 150,
+      headerName: 'Difficulty level',
+      renderCell: ({ row }: CellType) => {
+        return (
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            {/* <Icon icon={userRoleObj[row.role].icon} fontSize={20} /> */}
+            <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
+              {row.difficultLevel}
+            </Typography>
+          </Box>
+        )
+      }
+    },
+    {
+      flex: 0.15,
+      minWidth: 120,
+      headerName: 'Description',
+      field: 'Description',
+      renderCell: ({ row }: CellType) => {
+        return (
+          <Typography variant='subtitle1' noWrap sx={{ textTransform: 'capitalize' }}>
+            {row.description}
+          </Typography>
+        )
+      }
+    },
+    {
+      flex: 0.15,
+      minWidth: 120,
+      headerName: 'Total questions',
+      field: 'totalQuestions',
+      renderCell: ({ row }: CellType) => {
+        return (
+          <Typography variant='subtitle1' noWrap sx={{ textTransform: 'capitalize' }}>
+            {row.totalQuestion}
+          </Typography>
+        )
+      }
+    },
+    {
+      flex: 0.1,
+      minWidth: 90,
+      sortable: false,
+      field: 'actions',
+      headerName: 'Actions',
+      renderCell: ({ row }: CellType) => <RowOptions id={row.id} />
+    }
+  ]
+
+  useEffect(() => {
+    const getTests = async () => {
+      try {
+        const res = await fetch('https://iqtest-server.onrender.com/api/tests', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`)
+        }
+        const data = await res.json()
+        console.log(data)
+        setTests(data.test)
+      } catch (error) {
+        console.error('An error occurred while fetching the tests.', error)
+      }
+    }
+
+    getTests()
+  }, [])
+
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const store = useSelector((state: RootState) => state.user)
 
-  useEffect(() => {
-    dispatch(
-      fetchData({
-        role,
-        status,
-        q: value,
-        currentPlan: plan
-      })
-    )
-  }, [dispatch, plan, role, status, value])
+  // useEffect(() => {
+  //   dispatch(
+  //     fetchData({
+  //       role,
+  //       status,
+  //       q: value,
+  //       currentPlan: plan
+  //     })
+  //   )
+  // }, [dispatch, plan, role, status, value])
 
   const handleFilter = useCallback((val: string) => {
     setValue(val)
@@ -307,91 +445,19 @@ const ManageTest = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>)
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        {apiData && (
-          <Grid container spacing={6}>
-            {apiData.statsHorizontal.map((item: CardStatsHorizontalProps, index: number) => {
-              return (
-                <Grid item xs={12} md={3} sm={6} key={index}>
-                  <CardStatisticsHorizontal {...item} icon={<Icon icon={item.icon as string} />} />
-                </Grid>
-              )
-            })}
-          </Grid>
-        )}
-      </Grid>
-      <Grid item xs={12}>
         <Card>
-          <CardHeader title='Search Filters' sx={{ pb: 4, '& .MuiCardHeader-title': { letterSpacing: '.15px' } }} />
-          <CardContent>
-            <Grid container spacing={6}>
-              <Grid item sm={4} xs={12}>
-                <FormControl fullWidth>
-                  <InputLabel id='role-select'>Select Role</InputLabel>
-                  <Select
-                    fullWidth
-                    value={role}
-                    id='select-role'
-                    label='Select Role'
-                    labelId='role-select'
-                    onChange={handleRoleChange}
-                    inputProps={{ placeholder: 'Select Role' }}
-                  >
-                    <MenuItem value=''>Select Role</MenuItem>
-                    <MenuItem value='admin'>Admin</MenuItem>
-                    <MenuItem value='author'>Author</MenuItem>
-                    <MenuItem value='editor'>Editor</MenuItem>
-                    <MenuItem value='maintainer'>Maintainer</MenuItem>
-                    <MenuItem value='subscriber'>Subscriber</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item sm={4} xs={12}>
-                <FormControl fullWidth>
-                  <InputLabel id='plan-select'>Select Plan</InputLabel>
-                  <Select
-                    fullWidth
-                    value={plan}
-                    id='select-plan'
-                    label='Select Plan'
-                    labelId='plan-select'
-                    onChange={handlePlanChange}
-                    inputProps={{ placeholder: 'Select Plan' }}
-                  >
-                    <MenuItem value=''>Select Plan</MenuItem>
-                    <MenuItem value='basic'>Basic</MenuItem>
-                    <MenuItem value='company'>Company</MenuItem>
-                    <MenuItem value='enterprise'>Enterprise</MenuItem>
-                    <MenuItem value='team'>Team</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item sm={4} xs={12}>
-                <FormControl fullWidth>
-                  <InputLabel id='status-select'>Select Status</InputLabel>
-                  <Select
-                    fullWidth
-                    value={status}
-                    id='select-status'
-                    label='Select Status'
-                    labelId='status-select'
-                    onChange={handleStatusChange}
-                    inputProps={{ placeholder: 'Select Role' }}
-                  >
-                    <MenuItem value=''>Select Role</MenuItem>
-                    <MenuItem value='pending'>Pending</MenuItem>
-                    <MenuItem value='active'>Active</MenuItem>
-                    <MenuItem value='inactive'>Inactive</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-            </Grid>
-          </CardContent>
-          <Divider />
-          <TableHeader value={value} handleFilter={handleFilter} toggle={toggleAddUserDrawer} />
+          <TableHeader
+            value={value}
+            handleFilter={handleFilter}
+            toggle={toggleAddUserDrawer}
+            searchPlaceholder={'Search Test'}
+            addButtonLabel={'Add Test'}
+          />
           <DataGrid
             autoHeight
-            rows={store.data}
-            columns={columns}
+            // rows={store.data}
+            rows={tests}
+            columns={testColumns}
             checkboxSelection
             disableRowSelectionOnClick
             pageSizeOptions={[10, 25, 50]}

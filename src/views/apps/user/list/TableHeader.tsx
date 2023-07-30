@@ -10,11 +10,13 @@ interface TableHeaderProps {
   value: string
   toggle: () => void
   handleFilter: (val: string) => void
+  searchPlaceholder: string
+  addButtonLabel: string
 }
 
 const TableHeader = (props: TableHeaderProps) => {
   // ** Props
-  const { handleFilter, toggle, value } = props
+  const { handleFilter, toggle, value, searchPlaceholder, addButtonLabel } = props
 
   return (
     <Box sx={{ p: 5, pb: 3, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -31,12 +33,12 @@ const TableHeader = (props: TableHeaderProps) => {
           size='small'
           value={value}
           sx={{ mr: 6, mb: 2 }}
-          placeholder='Search User'
+          placeholder={searchPlaceholder}
           onChange={e => handleFilter(e.target.value)}
         />
 
         <Button sx={{ mb: 2 }} onClick={toggle} variant='contained'>
-          Add User
+          {addButtonLabel}
         </Button>
       </Box>
     </Box>

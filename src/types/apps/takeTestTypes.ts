@@ -7,6 +7,8 @@ export type TestType = {
   testName: string
   testType: string
   difficultLevel: string
+  description: string
   timeLimit: any
   totalQuestion: number
+  isPaid: boolean
 }
