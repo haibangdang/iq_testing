@@ -14,8 +14,6 @@ export interface Modules {
 
 export interface EditorProps {
   initialValue: string
-
-  // onChange: (content: string) => void
   modules: Modules
   index: number
 }
@@ -23,13 +21,6 @@ export interface EditorProps {
 const Editor: React.FC<EditorProps> = ({ initialValue, modules, index }) => {
   const [value, setValue] = useState('')
   const { handleUpdateQuestionText } = useContext(TestContext)
-
-  // const question = test[index]
-
-  // const handleChange = (content: string) => {
-  //   setValue(content)
-  //   onChange(content)
-  // }
 
   const handleEditorChange = (content: string) => {
     handleUpdateQuestionText(index, content)

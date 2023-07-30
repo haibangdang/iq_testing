@@ -12,7 +12,7 @@ import { TestContext } from 'src/context/TestContext'
 import Question from './Questions'
 
 // import { TimeField } from '@mui/x-date-pickers/TimeField'
-import dayjs, { Dayjs } from 'dayjs'
+// import dayjs, { Dayjs } from 'dayjs'
 
 import { TimePicker } from '@mui/x-date-pickers/TimePicker'
 
@@ -21,6 +21,9 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker'
 // import DesktopTimePicker from '@mui/lab/DesktopTimePicker'
 
 import TextField from '@mui/material/TextField'
+
+import Checkbox from '@mui/material/Checkbox'
+import FormControlLabel from '@mui/material/FormControlLabel'
 
 // import { TextFieldProps } from '@mui/material'
 
@@ -64,7 +67,21 @@ function a11yProps(index: number) {
 }
 
 export default function Introduction() {
-  const { test, setTest, handleRemoveQuestion } = useContext(TestContext)
+  const {
+    test,
+    setTest,
+    handleRemoveQuestion,
+    testName,
+    setTestName,
+    category,
+    setCategory,
+    description,
+    setDescription,
+    selectedTime,
+    setSelectedTime,
+    isPaid,
+    setIsPaid
+  } = useContext(TestContext)
 
   const [data, setData] = useState([])
 
@@ -111,12 +128,6 @@ export default function Introduction() {
     ])
   }
 
-  const [category, setCategory] = React.useState('')
-
-  const [description, setDescription] = useState('')
-
-  const [selectedTime, setSelectedTime] = React.useState<Dayjs | null>(dayjs('2022-04-17T15:30'))
-
   const handleChangeSelect = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string)
   }
@@ -134,6 +145,17 @@ export default function Introduction() {
 
   return (
     <Box>
+      <Box>Name:</Box>
+      <TextField
+        multiline
+        maxRows={4}
+        fullWidth
+        sx={{ height: '150px' }}
+        value={testName}
+        label='Test Name'
+        onChange={event => setTestName(event.target.value)}
+        id='textarea-outlined-controlled'
+      />
       <Box>Introduction:</Box>
       <TextField
         multiline
@@ -233,6 +255,17 @@ export default function Introduction() {
                   <MenuItem value={'medium'}>Medium</MenuItem>
                   <MenuItem value={'hard'}>Hard</MenuItem>
                 </Select>
+              </FormControl>
+            </Box>
+
+            <Box sx={{ mb: 2 }}>
+              <FormControl fullWidth>
+                <FormControlLabel
+                  control={
+                    <Checkbox checked={isPaid} onChange={event => setIsPaid(event.target.checked)} name='isPaid' />
+                  }
+                  label='paid test'
+                />
               </FormControl>
             </Box>
           </Box>

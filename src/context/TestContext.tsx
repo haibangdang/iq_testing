@@ -1,8 +1,19 @@
 import { createContext, useState } from 'react'
+import dayjs, { Dayjs } from 'dayjs'
 
 interface ITestContext {
   test: any[]
   setTest: React.Dispatch<React.SetStateAction<any[]>>
+  testName: string
+  setTestName: React.Dispatch<React.SetStateAction<string>>
+  category: string
+  setCategory: React.Dispatch<React.SetStateAction<string>>
+  description: string
+  setDescription: React.Dispatch<React.SetStateAction<string>>
+  selectedTime: Dayjs | null
+  setSelectedTime: React.Dispatch<React.SetStateAction<Dayjs | null>>
+  isPaid: boolean
+  setIsPaid: React.Dispatch<React.SetStateAction<boolean>>
   handleAddAnswer: (questionIndex: number) => void
   handleSetCorrectAnswer: (questionIndex: number, answerIndex: number) => void
   handleUpdateQuestionText: (questionIndex: number, newText: string) => void
@@ -15,6 +26,26 @@ const TestContext = createContext<ITestContext>({
   test: [],
   setTest: () => {
     throw new Error('setTest function must be overridden')
+  },
+  testName: '',
+  setTestName: () => {
+    throw new Error('setTestName function must be overridden')
+  },
+  category: '',
+  setCategory: () => {
+    throw new Error('setCategory function must be overridden')
+  },
+  description: '',
+  setDescription: () => {
+    throw new Error('setDescription function must be overridden')
+  },
+  selectedTime: null,
+  setSelectedTime: () => {
+    throw new Error('setSelectedTime function must be overridden')
+  },
+  isPaid: false,
+  setIsPaid: () => {
+    throw new Error('setIsPaid function must be overridden')
   },
   handleAddAnswer: () => {
     throw new Error('handleAddAnswer function must be overridden')
@@ -46,6 +77,12 @@ const TestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
       correctAnswer: -1
     }
   ])
+
+  const [testName, setTestName] = useState('')
+  const [category, setCategory] = useState('')
+  const [description, setDescription] = useState('')
+  const [selectedTime, setSelectedTime] = useState<Dayjs | null>(dayjs('2022-04-17T15:30'))
+  const [isPaid, setIsPaid] = useState(false)
 
   // Add logic to handle adding an answer to a specific question
   const handleAddAnswer = (questionIndex: number) => {
@@ -150,6 +187,16 @@ const TestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const value = {
     test,
     setTest,
+    testName,
+    setTestName,
+    category,
+    setCategory,
+    description,
+    setDescription,
+    selectedTime,
+    setSelectedTime,
+    isPaid,
+    setIsPaid,
     handleAddAnswer,
     handleSetCorrectAnswer,
     handleUpdateQuestionText,
