@@ -231,8 +231,8 @@ export default function Introduction() {
               <FormControl fullWidth>
                 <TimePicker
                   label='Time limit'
-                  views={['minutes', 'seconds']}
-                  format='mm:ss'
+                  views={['hours', 'minutes', 'seconds']}
+                  format='hh:mm:ss'
                   value={selectedTime}
                   onChange={newValue => {
                     setSelectedTime(newValue)
