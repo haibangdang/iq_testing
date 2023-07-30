@@ -10,8 +10,8 @@ interface TableHeaderProps {
   value: string
   toggle: () => void
   handleFilter: (val: string) => void
-  searchPlaceholder: string
-  addButtonLabel: string
+  searchPlaceholder?: string
+  addButtonLabel?: string
 }
 
 const TableHeader = (props: TableHeaderProps) => {
