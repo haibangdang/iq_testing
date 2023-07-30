@@ -387,7 +387,13 @@ const UserList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) =
             </Grid>
           </CardContent>
           <Divider />
-          <TableHeader value={value} handleFilter={handleFilter} toggle={toggleAddUserDrawer} />
+          <TableHeader
+            value={value}
+            handleFilter={handleFilter}
+            toggle={toggleAddUserDrawer}
+            addButtonLabel={'Add User'}
+            searchPlaceholder={'Search User'}
+          />
           <DataGrid
             autoHeight
             rows={store.data}
