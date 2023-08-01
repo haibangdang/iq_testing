@@ -24,9 +24,23 @@ import HorizontalAppBarContent from './components/horizontal/AppBarContent'
 // ** Hook Import
 import { useSettings } from 'src/@core/hooks/useSettings'
 
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+
 interface Props {
   children: ReactNode
   contentHeightFixed?: boolean
+}
+
+const AppBrand = () => {
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <img src='/images/appBrand/logoApp.png' alt='logo' width='30' height='30' />
+      <Typography variant='h6' sx={{ ml: 2 }}>
+        IQ Testing
+      </Typography>
+    </Box>
+  )
 }
 
 const UserLayout = ({ children, contentHeightFixed }: Props) => {
@@ -59,6 +73,7 @@ const UserLayout = ({ children, contentHeightFixed }: Props) => {
       contentHeightFixed={contentHeightFixed}
       verticalLayoutProps={{
         navMenu: {
+          branding: () => <AppBrand />,
           navItems: VerticalNavItems()
 
           // Uncomment the below line when using server-side menu in vertical layout and comment the above line
@@ -90,7 +105,6 @@ const UserLayout = ({ children, contentHeightFixed }: Props) => {
       })}
     >
       {children}
-      
     </Layout>
   )
 }
