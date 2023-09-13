@@ -7,16 +7,17 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
-import { TestType } from 'src/types/apps/takeTestTypes'
+import { TestType, QuestionType } from 'src/types/apps/takeTestTypes'
 
 interface TabPanelProps {
   children?: React.ReactNode
   index: number
   value: number
+  question: QuestionType // add this line
 }
 
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props
+  const { value, index, question, ...other } = props
 
   return (
     <div
@@ -28,7 +29,10 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography>{question.questionText}</Typography>
+          {question.answers &&
+            question.answers.map((answer, i) => <Typography key={i}>{answer.answerText}</Typography>)}
+          <Typography>Correct Answer: {question.correctAnswer}</Typography>
         </Box>
       )}
     </div>
@@ -74,8 +78,11 @@ const TestDisplay: React.FC<TestDisplayProps> = ({ test }) => {
               ))}
             </Tabs>
             {test.questions.map((question, index) => (
-              <TabPanel key={index} value={value} index={index}>
+              <TabPanel key={index} value={value} index={index} question={question}>
                 <Typography>{question.questionText}</Typography>
+                {question.answers &&
+                  question.answers.map((answer, i) => <Typography key={i}>{answer.answerText}</Typography>)}
+                <Typography>Correct Answer: {question.correctAnswer}</Typography>
               </TabPanel>
             ))}
           </Box>

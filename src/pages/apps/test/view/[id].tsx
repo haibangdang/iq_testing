@@ -50,6 +50,7 @@ const TestDetail = () => {
 
   return (
     <div>
+      {/* <h1>{test.testName}</h1> */}
       {/* Use the TestDisplay component to display test details */}
       <TestDisplay test={test} />
     </div>
