@@ -11,8 +11,13 @@ import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
 import InputLabel from '@mui/material/InputLabel'
 import IconButton from '@mui/material/IconButton'
+import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
 import Box, { BoxProps } from '@mui/material/Box'
+import { Select, MenuItem, SelectChangeEvent } from '@mui/material'
+
 import FormControl from '@mui/material/FormControl'
+import FormLabel from '@mui/material/FormLabel'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import { styled, useTheme } from '@mui/material/styles'
@@ -34,6 +39,9 @@ import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+
+// ** Types
+// import { UserDataType } from 'src/context/types'
 
 // ** Styled Components
 const RegisterIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
@@ -104,6 +112,80 @@ const Register = () => {
   const { skin } = settings
 
   const imageSource = skin === 'bordered' ? 'auth-v2-register-illustration-bordered' : 'auth-v2-register-illustration'
+
+  const [username, setUsername] = useState('')
+
+  const [email, setEmail] = useState('')
+
+  const [phonenumber, setPhonenumber] = useState('')
+
+  const [password, setPassword] = useState('')
+
+  const [gender, setGender] = useState<string>('male')
+
+  const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setGender(event.target.value)
+  }
+
+  const [country, setCountry] = useState('Viet Nam')
+
+  const countries = ['United States', 'Canada', 'Australia', 'United Kingdom', 'Viet Nam']
+
+  const handleCountryChange = (event: SelectChangeEvent<string>) => {
+    setCountry(event.target.value as string)
+  }
+
+  const [dob, setDob] = useState<string | null>(null)
+
+  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDob(event.target.value)
+  }
+
+  // const [userData, setUserData] = useState<UserDataType>({
+  //   id: -1, // ID này sẽ do backend định nghĩa, chỉ đặt giá trị tạm thời ở đây
+  //   role: 'member', // hoặc giá trị khác mà bạn mong muốn mặc định
+  //   email: '',
+  //   fullName: '',
+  //   username: '',
+  //   password: '',
+  //   avatar: null,
+  //   dob: null,
+  //   gender: null,
+  //   phoneNumber: null,
+  //   country: null
+  // })
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+
+    const data = {
+      userName: username,
+      email: email, // assuming the first field is email
+      password: password, // assuming the second field is password
+      phoneNumber: phonenumber,
+      dob: dob,
+      country: country,
+      gender: gender
+    }
+
+    try {
+      const response = await fetch('https://iqtest-server.onrender.com/api/users/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+
+      const result = await response.json()
+
+      console.log('result: ', result)
+
+      // Handle success or error based on the response
+    } catch (error) {
+      console.error('Error during registration:', error)
+    }
+  }
 
   return (
     <Box className='content-right'>
@@ -218,15 +300,32 @@ const Register = () => {
               <TypographyStyled variant='h5'>Adventure starts here 🚀</TypographyStyled>
               <Typography variant='body2'>Make your app management easy and fun!</Typography>
             </Box>
-            <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-              <TextField autoFocus fullWidth sx={{ mb: 4 }} label='Username' placeholder='haibang' />
-              <TextField fullWidth label='Email' sx={{ mb: 4 }} placeholder='user@email.com' />
+            <form noValidate autoComplete='off' onSubmit={handleSubmit}>
+              <TextField
+                autoFocus
+                fullWidth
+                sx={{ mb: 4 }}
+                label='Username'
+                placeholder='Username'
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+              />
+              <TextField
+                fullWidth
+                label='Email'
+                sx={{ mb: 4 }}
+                placeholder='user@email.com'
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+              />
               <FormControl fullWidth>
                 <InputLabel htmlFor='auth-login-v2-password'>Password</InputLabel>
                 <OutlinedInput
                   label='Password'
                   id='auth-login-v2-password'
                   type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
                   endAdornment={
                     <InputAdornment position='end'>
                       <IconButton
@@ -239,6 +338,59 @@ const Register = () => {
                     </InputAdornment>
                   }
                 />
+              </FormControl>
+
+              <TextField
+                fullWidth
+                label='Phone number'
+                sx={{ mb: 4 }}
+                placeholder='Phone number'
+                value={phonenumber}
+                onChange={e => setPhonenumber(e.target.value)}
+              />
+
+              <TextField
+                fullWidth
+                label='Date of Birth'
+                type='date'
+                value={dob || ''}
+                onChange={handleDateChange}
+                InputLabelProps={{
+                  shrink: true
+                }}
+              />
+
+              <FormControl fullWidth sx={{ mb: 4, marginTop: '1em' }}>
+                <InputLabel id='country-label'>Country</InputLabel>
+                <Select labelId='country-label' value={country} onChange={handleCountryChange} label='Country'>
+                  {countries.map((c, index) => (
+                    <MenuItem key={index} value={c}>
+                      {c}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
+              <FormControl
+                component='fieldset'
+                sx={{
+                  border: '0.5px solid #ccc',
+                  borderRadius: '4px',
+                  padding: '1em',
+                  marginTop: '1em'
+                }}
+              >
+                <FormLabel component='legend'>Gender</FormLabel>
+                <RadioGroup
+                  row
+                  aria-label='gender'
+                  name='row-radio-buttons-group'
+                  value={gender}
+                  onChange={handleGenderChange}
+                >
+                  <FormControlLabel value='male' control={<Radio />} label='Male' />
+                  <FormControlLabel value='female' control={<Radio />} label='Female' />
+                </RadioGroup>
               </FormControl>
 
               <FormControlLabel
