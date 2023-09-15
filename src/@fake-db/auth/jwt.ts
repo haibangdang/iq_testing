@@ -16,7 +16,7 @@ const users: UserDataType[] = [
     role: 'admin',
     password: 'admin',
     fullName: 'Hai Bang',
-    username: 'haibang',
+    userName: 'haibang',
     email: 'admin@materialize.com'
   },
   {
@@ -24,7 +24,7 @@ const users: UserDataType[] = [
     role: 'client',
     password: 'client',
     fullName: 'Jane Doe',
-    username: 'janedoe',
+    userName: 'janedoe',
     email: 'client@materialize.com'
   }
 ]
@@ -67,9 +67,9 @@ mock.onPost('/jwt/login').reply(request => {
 
 mock.onPost('/jwt/register').reply(request => {
   if (request.data.length > 0) {
-    const { email, password, username } = JSON.parse(request.data)
+    const { email, password, userName } = JSON.parse(request.data)
     const isEmailAlreadyInUse = users.find(user => user.email === email)
-    const isUsernameAlreadyInUse = users.find(user => user.username === username)
+    const isUsernameAlreadyInUse = users.find(user => user.userName === userName)
     const error = {
       email: isEmailAlreadyInUse ? 'This email is already in use.' : null,
       username: isUsernameAlreadyInUse ? 'This username is already in use.' : null
@@ -85,7 +85,7 @@ mock.onPost('/jwt/register').reply(request => {
         id: lastIndex + 1,
         email,
         password,
-        username,
+        userName,
         avatar: null,
         fullName: '',
         role: 'admin'

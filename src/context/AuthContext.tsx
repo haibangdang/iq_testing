@@ -80,6 +80,8 @@ const AuthProvider = ({ children }: Props) => {
           : null
         const returnUrl = router.query.returnUrl
 
+        console.log('user Data login: ', response.data.userData)
+
         setUser({ ...response.data.userData })
         params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.userData)) : null
 
