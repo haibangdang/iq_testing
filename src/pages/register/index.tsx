@@ -123,6 +123,8 @@ const Register = () => {
 
   const [gender, setGender] = useState<string>('male')
 
+  const [fullname, setFullname] = useState('')
+
   const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGender(event.target.value)
   }
@@ -161,6 +163,7 @@ const Register = () => {
     const data = {
       userName: username,
       email: email, // assuming the first field is email
+      fullName: fullname,
       password: password, // assuming the second field is password
       phoneNumber: phonenumber,
       dob: dob,
@@ -298,7 +301,7 @@ const Register = () => {
             </Box>
             <Box sx={{ mb: 6 }}>
               <TypographyStyled variant='h5'>Adventure starts here 🚀</TypographyStyled>
-              <Typography variant='body2'>Make your app management easy and fun!</Typography>
+              <Typography variant='body2'>Take your test IQ now!</Typography>
             </Box>
             <form noValidate autoComplete='off' onSubmit={handleSubmit}>
               <TextField
@@ -318,6 +321,7 @@ const Register = () => {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
               />
+
               <FormControl fullWidth>
                 <InputLabel htmlFor='auth-login-v2-password'>Password</InputLabel>
                 <OutlinedInput
@@ -341,9 +345,19 @@ const Register = () => {
               </FormControl>
 
               <TextField
+                autoFocus
+                fullWidth
+                sx={{ mb: 4, marginTop: '1em' }}
+                label='Full Name'
+                placeholder='Full Name'
+                value={username}
+                onChange={e => setFullname(e.target.value)}
+              />
+
+              <TextField
                 fullWidth
                 label='Phone number'
-                sx={{ mb: 4 }}
+                sx={{ mb: 4, marginTop: '1em' }}
                 placeholder='Phone number'
                 value={phonenumber}
                 onChange={e => setPhonenumber(e.target.value)}
