@@ -350,7 +350,7 @@ const Register = () => {
                 sx={{ mb: 4, marginTop: '1em' }}
                 label='Full Name'
                 placeholder='Full Name'
-                value={username}
+                value={fullname}
                 onChange={e => setFullname(e.target.value)}
               />
 
