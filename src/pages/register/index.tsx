@@ -25,6 +25,12 @@ import InputAdornment from '@mui/material/InputAdornment'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
 
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
@@ -36,9 +42,15 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Hooks
 import { useSettings } from 'src/@core/hooks/useSettings'
+import { useAuth } from 'src/hooks/useAuth'
 
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+
+// ** Third Party Imports
+import * as yup from 'yup'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 // ** Types
 // import { UserDataType } from 'src/context/types'
@@ -113,6 +125,8 @@ const Register = () => {
 
   const imageSource = skin === 'bordered' ? 'auth-v2-register-illustration-bordered' : 'auth-v2-register-illustration'
 
+  const [openDialog, setOpenDialog] = useState(false)
+
   const [username, setUsername] = useState('')
 
   const [email, setEmail] = useState('')
@@ -143,6 +157,24 @@ const Register = () => {
     setDob(event.target.value)
   }
 
+  const auth = useAuth()
+
+  const schema = yup.object().shape({
+    email: yup.string().email().required(),
+    password: yup.string().min(5).required()
+  })
+
+  const defaultValues = {
+    password: 'admin',
+    email: 'admin@gmail.com'
+  }
+
+  const { setError } = useForm({
+    defaultValues,
+    mode: 'onBlur',
+    resolver: yupResolver(schema)
+  })
+
   // const [userData, setUserData] = useState<UserDataType>({
   //   id: -1, // ID này sẽ do backend định nghĩa, chỉ đặt giá trị tạm thời ở đây
   //   role: 'member', // hoặc giá trị khác mà bạn mong muốn mặc định
@@ -157,7 +189,7 @@ const Register = () => {
   //   country: null
   // })
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
     const data = {
@@ -184,10 +216,23 @@ const Register = () => {
 
       console.log('result: ', result)
 
-      // Handle success or error based on the response
+      if (result) {
+        setOpenDialog(true)
+      }
     } catch (error) {
       console.error('Error during registration:', error)
     }
+  }
+
+  const handleDialogClose = () => {
+    setOpenDialog(false)
+
+    auth.login({ email, password, rememberMe: true }, () => {
+      setError('email', {
+        type: 'manual',
+        message: 'Email or Password is invalid'
+      })
+    })
   }
 
   return (
@@ -303,7 +348,7 @@ const Register = () => {
               <TypographyStyled variant='h5'>Adventure starts here 🚀</TypographyStyled>
               <Typography variant='body2'>Take your test IQ now!</Typography>
             </Box>
-            <form noValidate autoComplete='off' onSubmit={handleSubmit}>
+            <form noValidate autoComplete='off' onSubmit={onSubmit}>
               <TextField
                 autoFocus
                 fullWidth
@@ -462,6 +507,18 @@ const Register = () => {
           </BoxWrapper>
         </Box>
       </RightWrapper>
+
+      <Dialog open={openDialog} onClose={handleDialogClose}>
+        <DialogTitle>Register succesfully</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Register succesfully !.</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color='primary'>
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   )
 }
