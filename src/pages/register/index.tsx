@@ -511,7 +511,12 @@ const Register = () => {
       <Dialog open={openDialog} onClose={handleDialogClose}>
         <DialogTitle>Register succesfully</DialogTitle>
         <DialogContent>
-          <DialogContentText>Register succesfully !.</DialogContentText>
+          <Box display='flex' flexDirection='column' alignItems='center'>
+            <Box bgcolor='success.main' p={1} borderRadius='50%' mb={2}>
+              <Icon icon='mdi:check' style={{ color: 'white', fontSize: '2rem' }}></Icon>
+            </Box>
+            <DialogContentText>Register succesfully!</DialogContentText>
+          </Box>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose} color='primary'>
