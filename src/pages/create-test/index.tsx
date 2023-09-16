@@ -112,44 +112,6 @@ const CreateTest = () => {
     window.location.reload()
   }
 
-  // const [answers, setAnswers] = useState<string[]>(['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'])
-  // const [correctAnswer, setCorrectAnswer] = useState<number>(0)
-
-  // const handleListItemClick = (index: number) => {
-  //   setCorrectAnswer(index)
-  // }
-
-  // const handleAddAnswer = () => {
-  //   if (answers.length < 10) {
-  //     setAnswers(prevAnswers => [...prevAnswers, `Answer ${prevAnswers.length + 1}`])
-  //   } else {
-  //     alert('You can add up to 10 answers')
-  //   }
-  // }
-
-  // const handleSubmit = async () => {
-  //   const payload = {
-  //     answers: answers,
-  //     correctAnswer: correctAnswer
-  //   }
-
-  //   const response = await fetch('/api/submit', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(payload)
-  //   })
-
-  //   if (!response.ok) {
-  //     // handle error
-  //     console.error('Error submitting data')
-  //   } else {
-  //     // handle success
-  //     console.log('Success!')
-  //   }
-  // }
-
   return (
     <CreateTestWrapper>
       <Grid container spacing={2}>
