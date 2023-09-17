@@ -140,7 +140,7 @@ const TestDisplay: React.FC<TestDisplayProps> = ({ test }) => {
       endTime: endTime.toISOString(),
       duration: test.timeLimit,
       answers: Object.entries(selectedAnswers).map(([questionId, answerStr]) => {
-        const [answerIndex, answerValue] = answerStr.split('_')
+        const [answerIndex] = answerStr.split('_')
 
         return {
           questionId: parseInt(questionId, 10),
