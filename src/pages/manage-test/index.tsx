@@ -312,7 +312,7 @@ const ManageTest = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>)
             {/* {renderClient(row)} */}
             <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
               {/* <LinkStyled href='/apps/user/view/overview/'>{id}</LinkStyled> */}
-              <LinkStyled href='/apps/test/view/${id}'>{id}</LinkStyled>
+              <LinkStyled href={`/apps/test/view/${id}`}>{id}</LinkStyled>
               {/* <Typography noWrap variant='caption'>
                 {`@${testName}`}
               </Typography> */}
