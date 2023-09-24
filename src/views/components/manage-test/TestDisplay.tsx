@@ -211,7 +211,6 @@ const TestDisplay: React.FC<TestDisplayProps> = ({ test }) => {
               ))}
             </Tabs>
             {test.questions.map((question, index) => {
-              // Tạo một mảng answers từ question
               const answers = []
               for (let i = 1; i <= 10; i++) {
                 const answer = (question as any)[`answer${i}`]
