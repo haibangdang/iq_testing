@@ -276,28 +276,6 @@ const ManageTest = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>)
 
   const [tests, setTests] = useState([])
 
-  // const testColumns = [
-  //   { field: 'id', headerName: 'ID', width: 70 },
-  //   { field: 'testName', headerName: 'Test name', width: 200 },
-  //   { field: 'testType', headerName: 'Test type', width: 200 },
-  //   { field: 'difficultLevel', headerName: 'Difficulty level', width: 150 },
-  //   { field: 'timeLimit', headerName: 'Time limit', width: 150 },
-  //   { field: 'description', headerName: 'Description', width: 250 },
-  //   { field: 'totalQuestion', headerName: 'Total questions', width: 150 },
-  //   {
-  //     field: 'actions',
-  //     headerName: 'Actions',
-  //     width: 150,
-  //     renderCell: params => (
-  //       <strong>
-  //         <Button variant='contained' color='primary' size='small' style={{ marginLeft: 16 }}>
-  //           Edit
-  //         </Button>
-  //       </strong>
-  //     )
-  //   }
-  // ]
-
   const testColumns: GridColDef[] = [
     {
       flex: 0.2,
