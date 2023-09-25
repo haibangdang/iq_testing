@@ -35,3 +35,22 @@ export type AnswerType = {
   id: number
   answerText: string
 }
+
+export type TestResultType = {
+  id: number
+  testId: number
+  userId: number
+  startTime: Date
+  endTime: Date
+  duration: any
+  totalQuestions: number
+  totalScore: number
+  testType: string
+  testTypeName?: string
+  description?: string
+  timeLimit?: any
+  explanation?: string
+  difficultLevel?: string
+  totalCorrectAnswers: number
+  test?: TestType
+}

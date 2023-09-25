@@ -22,32 +22,26 @@ import Icon from 'src/@core/components/icon'
 import format from 'date-fns/format'
 
 // ** Store & Actions Imports
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { fetchData, deleteInvoice } from 'src/store/apps/invoice'
 
 // ** Types Imports
-import { RootState, AppDispatch } from 'src/store'
-import { ThemeColor } from 'src/@core/layouts/types'
-import { InvoiceType } from 'src/types/apps/invoiceTypes'
-
-// ** Utils Import
-import { getInitials } from 'src/@core/utils/get-initials'
+import { AppDispatch } from 'src/store'
+import { TestResultType } from 'src/types/apps/takeTestTypes'
 
 // ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import CustomAvatar from 'src/@core/components/mui/avatar'
 import OptionsMenu from 'src/@core/components/option-menu'
 import TableHeader from './TableHeader'
 
 // ** Styled Components
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
-interface InvoiceStatusObj {
-  [key: string]: {
-    icon: string
-    color: ThemeColor
-  }
-}
+// interface InvoiceStatusObj {
+//   [key: string]: {
+//     icon: string
+//     color: ThemeColor
+//   }
+// }
 
 interface CustomInputProps {
   dates: Date[]
@@ -58,7 +52,7 @@ interface CustomInputProps {
 }
 
 interface CellType {
-  row: InvoiceType
+  row: TestResultType
 }
 
 // ** Styled component for the link in the dataTable
@@ -68,31 +62,31 @@ const LinkStyled = styled(Link)(({ theme }) => ({
 }))
 
 // ** Vars
-const invoiceStatusObj: InvoiceStatusObj = {
-  Sent: { color: 'secondary', icon: 'mdi:send' },
-  Paid: { color: 'success', icon: 'mdi:check' },
-  Draft: { color: 'primary', icon: 'mdi:content-save-outline' },
-  'Partial Payment': { color: 'warning', icon: 'mdi:chart-pie' },
-  'Past Due': { color: 'error', icon: 'mdi:information-outline' },
-  Downloaded: { color: 'info', icon: 'mdi:arrow-down' }
-}
+// const invoiceStatusObj: InvoiceStatusObj = {
+//   Sent: { color: 'secondary', icon: 'mdi:send' },
+//   Paid: { color: 'success', icon: 'mdi:check' },
+//   Draft: { color: 'primary', icon: 'mdi:content-save-outline' },
+//   'Partial Payment': { color: 'warning', icon: 'mdi:chart-pie' },
+//   'Past Due': { color: 'error', icon: 'mdi:information-outline' },
+//   Downloaded: { color: 'info', icon: 'mdi:arrow-down' }
+// }
 
 // ** renders client column
-const renderClient = (row: InvoiceType) => {
-  if (row.avatar.length) {
-    return <CustomAvatar src={row.avatar} sx={{ mr: 3, width: 34, height: 34 }} />
-  } else {
-    return (
-      <CustomAvatar
-        skin='light'
-        color={(row.avatarColor as ThemeColor) || ('primary' as ThemeColor)}
-        sx={{ mr: 3, fontSize: '1rem', width: 34, height: 34 }}
-      >
-        {getInitials(row.name || 'Hai Bang')}
-      </CustomAvatar>
-    )
-  }
-}
+// const renderClient = (row: InvoiceType) => {
+//   if (row.avatar.length) {
+//     return <CustomAvatar src={row.avatar} sx={{ mr: 3, width: 34, height: 34 }} />
+//   } else {
+//     return (
+//       <CustomAvatar
+//         skin='light'
+//         color={(row.avatarColor as ThemeColor) || ('primary' as ThemeColor)}
+//         sx={{ mr: 3, fontSize: '1rem', width: 34, height: 34 }}
+//       >
+//         {getInitials(row.name || 'Hai Bang')}
+//       </CustomAvatar>
+//     )
+//   }
+// }
 
 const defaultColumns: GridColDef[] = [
   {
@@ -103,99 +97,80 @@ const defaultColumns: GridColDef[] = [
     renderCell: ({ row }: CellType) => <LinkStyled href={`/apps/invoice/preview/${row.id}`}>{`#${row.id}`}</LinkStyled>
   },
   {
-    flex: 0.1,
-    minWidth: 80,
-    field: 'invoiceStatus',
-    renderHeader: () => (
-      <Box sx={{ display: 'flex', color: 'action.active' }}>
-        <Icon icon='mdi:trending-up' fontSize={20} />
-      </Box>
-    ),
+    flex: 0.25,
+    minWidth: 100,
+    field: 'startTime',
+    headerName: 'Start Time',
     renderCell: ({ row }: CellType) => {
-      const { dueDate, balance, invoiceStatus } = row
-
-      const color = invoiceStatusObj[invoiceStatus] ? invoiceStatusObj[invoiceStatus].color : 'primary'
-
       return (
-        <Tooltip
-          title={
-            <div>
-              <Typography variant='caption' sx={{ color: 'common.white', fontWeight: 600 }}>
-                {invoiceStatus}
-              </Typography>
-              <br />
-              <Typography variant='caption' sx={{ color: 'common.white', fontWeight: 600 }}>
-                Balance:
-              </Typography>{' '}
-              {balance}
-              <br />
-              <Typography variant='caption' sx={{ color: 'common.white', fontWeight: 600 }}>
-                Due Date:
-              </Typography>{' '}
-              {dueDate}
-            </div>
-          }
-        >
-          <CustomAvatar skin='light' color={color} sx={{ width: 34, height: 34 }}>
-            <Icon icon={invoiceStatusObj[invoiceStatus].icon} fontSize='1.25rem' />
-          </CustomAvatar>
-        </Tooltip>
+        <Typography noWrap variant='body2'>
+          {row.startTime.toString()}
+        </Typography>
       )
     }
   },
   {
     flex: 0.25,
-    field: 'name',
-    minWidth: 300,
-    headerName: 'Client',
+    minWidth: 100,
+    field: 'endTime',
+    headerName: 'End Time',
     renderCell: ({ row }: CellType) => {
-      const { name, companyEmail } = row
-
       return (
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          {renderClient(row)}
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography
-              noWrap
-              variant='body2'
-              sx={{ color: 'text.primary', fontWeight: 500, lineHeight: '22px', letterSpacing: '.1px' }}
-            >
-              {name}
-            </Typography>
-            <Typography noWrap variant='caption'>
-              {companyEmail}
-            </Typography>
-          </Box>
-        </Box>
+        <Typography noWrap variant='body2'>
+          {row.endTime.toString()}
+        </Typography>
       )
     }
   },
   {
-    flex: 0.1,
-    minWidth: 90,
-    field: 'total',
-    headerName: 'Total',
-    renderCell: ({ row }: CellType) => <Typography variant='body2'>{`$${row.total || 0}`}</Typography>
-  },
-  {
-    flex: 0.15,
-    minWidth: 125,
-    field: 'issuedDate',
-    headerName: 'Issued Date',
-    renderCell: ({ row }: CellType) => <Typography variant='body2'>{row.issuedDate}</Typography>
-  },
-  {
-    flex: 0.1,
-    minWidth: 90,
-    field: 'balance',
-    headerName: 'Balance',
+    flex: 0.25,
+    minWidth: 100,
+    field: 'duration',
+    headerName: 'Duration',
     renderCell: ({ row }: CellType) => {
-      return row.balance !== 0 ? (
-        <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {row.balance}
+      return (
+        <Typography noWrap variant='body2'>
+          {row.duration.toString()}
         </Typography>
-      ) : (
-        <CustomChip size='small' skin='light' color='success' label='Paid' />
+      )
+    }
+  },
+  {
+    flex: 0.25,
+    minWidth: 100,
+    field: 'totalScore',
+    headerName: 'Total Score',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.totalScore.toString()}
+        </Typography>
+      )
+    }
+  },
+  {
+    flex: 0.25,
+    minWidth: 100,
+    field: 'totalQuestion',
+    headerName: 'totalQuestion',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.totalQuestions.toString()}
+        </Typography>
+      )
+    }
+  },
+  {
+    flex: 0.25,
+    minWidth: 100,
+    field: 'testTypeName',
+    headerName: 'Test Type',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.testTypeName?.toString() ?? ''}
+        </Typography>
       )
     }
   }
@@ -221,25 +196,63 @@ const HistoryTable = () => {
   const [selectedRows, setSelectedRows] = useState<GridRowId[]>([])
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
 
+  const [testResults, setTestResults] = useState([])
+
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  const store = useSelector((state: RootState) => state.invoice)
 
   useEffect(() => {
     dispatch(
-
-      // @ts-ignore
       fetchData({
-        q: value
+        q: value,
+        status: ''
       })
     )
   }, [dispatch, value])
 
+  useEffect(() => {
+    const getTestResults = async () => {
+      try {
+        // Get user data from local storage
+        const userDataStr = window.localStorage.getItem('userData')
+        const userDataObj = userDataStr ? JSON.parse(userDataStr) : null
+        const userId = userDataObj ? userDataObj.id : null
+
+        // Check if userId exists
+        if (!userId) {
+          console.error('User ID not found in localStorage.')
+
+          return
+        }
+
+        // Construct the API endpoint with the userId
+        const endpoint = `https://iqtest-server.onrender.com/api/tests/history/${userId}`
+
+        const res = await fetch(endpoint, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`)
+        }
+
+        const data = await res.json()
+        console.log('user got: ', data)
+        setTestResults(data || [])
+      } catch (error) {
+        console.error('An error occurred while fetching the tests.', error)
+      }
+    }
+
+    getTestResults()
+  }, [])
+
   const handleFilter = (val: string) => {
     setValue(val)
   }
-
-
 
   const columns: GridColDef[] = [
     ...defaultColumns,
@@ -295,7 +308,7 @@ const HistoryTable = () => {
             <DataGrid
               autoHeight
               pagination
-              rows={store.data}
+              rows={testResults || []}
               columns={columns}
               checkboxSelection
               disableRowSelectionOnClick
