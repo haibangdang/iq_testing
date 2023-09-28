@@ -462,4 +462,9 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
+ManageTest.acl = {
+  action: 'read',
+  subject: 'acl-page'
+}
+
 export default ManageTest

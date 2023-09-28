@@ -1,39 +1,40 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { TestType } from 'src/types/apps/takeTestTypes'
-import TestDisplay from 'src/views/components/manage-test/TestDisplay'
+import { TestResultDetailType } from 'src/types/apps/takeTestTypes'
+import TestResultDisplay from 'src/views/components/test-result/TestResultDisplay'
 
-const TestDetail = () => {
+const TestResultDetail = () => {
   const router = useRouter()
   const { id } = router.query
-  const [test, setTest] = useState<TestType | null>(null)
+  const [testResult, setTestResult] = useState<TestResultDetailType | null>(null)
 
-  console.log('Id: ', id)
+  console.log('resultId: ', id)
 
-  // Fetch test details based on testId
+  // Fetch test result details based on resultId
   useEffect(() => {
-    const getTestDetail = async () => {
+    const getTestResultDetail = async () => {
       try {
-        const res = await fetch(`https://iqtest-server.onrender.com/api/tests/${id}`)
+        const res = await fetch(`https://iqtest-server.onrender.com/api/tests/results/${id}`)
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`)
         }
         const data = await res.json()
-        setTest(data)
+        console.log('Test result detail data: ', data)
+        setTestResult(data)
       } catch (error) {
         console.error('An error occurred while fetching the test details.', error)
       }
     }
 
     if (id) {
-      getTestDetail()
+      getTestResultDetail()
     }
   }, [id])
 
-  console.log('Test: ', test)
+  console.log('Test: ', testResult)
 
   // If test details are still loading or not found
-  if (!test) {
+  if (!testResult) {
     return <div>Loading...</div>
   }
 
@@ -52,14 +53,9 @@ const TestDetail = () => {
     <div>
       {/* <h1>{test.testName}</h1> */}
       {/* Use the TestDisplay component to display test details */}
-      <TestDisplay test={test} />
+      <TestResultDisplay testResult={testResult} />
     </div>
   )
 }
 
-TestDetail.acl = {
-  action: 'read',
-  subject: 'acl-page'
-}
-
-export default TestDetail
+export default TestResultDetail

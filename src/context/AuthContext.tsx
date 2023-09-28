@@ -39,6 +39,7 @@ const AuthProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
+      console.log("I'm checking login")
       const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
       if (storedToken) {
         setLoading(true)
@@ -49,8 +50,8 @@ const AuthProvider = ({ children }: Props) => {
             }
           })
           .then(async response => {
-            setLoading(false)
             setUser({ ...response.data.userData })
+            setLoading(false)
           })
           .catch(() => {
             localStorage.removeItem('userData')
@@ -71,6 +72,10 @@ const AuthProvider = ({ children }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    console.log('Updated user:', user)
+  }, [user])
+
   const handleLogin = (params: LoginParams, errorCallback?: ErrCallbackType) => {
     axios
       .post(authConfig.loginEndpoint, params)
@@ -83,6 +88,8 @@ const AuthProvider = ({ children }: Props) => {
         console.log('user Data login: ', response.data.userData)
 
         setUser({ ...response.data.userData })
+
+        console.log('user saved: ', user)
         params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.userData)) : null
 
         const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'

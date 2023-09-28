@@ -94,7 +94,7 @@ const defaultColumns: GridColDef[] = [
     field: 'id',
     minWidth: 80,
     headerName: '#',
-    renderCell: ({ row }: CellType) => <LinkStyled href={`/apps/invoice/preview/${row.id}`}>{`#${row.id}`}</LinkStyled>
+    renderCell: ({ row }: CellType) => <LinkStyled href={`/apps/test-result/view/${row.id}`}>{`#${row.id}`}</LinkStyled>
   },
   {
     flex: 0.25,

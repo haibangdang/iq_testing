@@ -31,7 +31,7 @@ function TabPanel(props: TabPanelProps) {
   const { value, index, question, selectedAnswer, onAnswerChange, testStarted, ...other } = props
 
   console.log('Question : ', question)
-
+  const defaultAnswerValue = ''
   const answers = []
   for (let i = 1; i <= 10; i++) {
     const answerKey = `answer${i}` as keyof QuestionType
@@ -59,7 +59,7 @@ function TabPanel(props: TabPanelProps) {
           <RadioGroup
             aria-label='answers'
             name={`question-${question.id}`}
-            value={selectedAnswer}
+            value={selectedAnswer || defaultAnswerValue}
             onChange={event => onAnswerChange(question.id, event)}
           >
             {answers.map((answer, i) => (
@@ -76,13 +76,6 @@ function TabPanel(props: TabPanelProps) {
     </div>
   )
 }
-
-// function a11yProps(index: number) {
-//   return {
-//     id: `vertical-tab-${index}`,
-//     'aria-controls': `vertical-tabpanel-${index}`
-//   }
-// }
 
 interface TestDisplayProps {
   test: TestType
