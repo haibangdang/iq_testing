@@ -30,12 +30,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
       }
     }
 
-    console.error('fetch data')
-
     // Assuming your API returns an array of TestType objects
-    const data: TestType[] = await res.json()
+    const data = await res.json()
 
-    const paths = data.map((item: TestType) => ({
+    console.error('fetch data: ', data)
+
+    const paths = data.test.map((item: TestType) => ({
       params: { id: `${item.id}` }
     }))
 
