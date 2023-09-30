@@ -28,6 +28,14 @@ const Question: React.FC<QuestionProps> = ({ index }) => {
     handleRemoveAnswer(index, answerIndex)
   }
 
+  const transformedAnswers = []
+
+  for (let i = 1; i <= 10; i++) {
+    if (question[`answer${i}`]) {
+      transformedAnswers.push(question[`answer${i}`])
+    }
+  }
+
   const modules: Modules = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],

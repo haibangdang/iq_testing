@@ -18,11 +18,17 @@ import TextField from '@mui/material/TextField'
 import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
+
+import { TestType } from 'src/types/apps/takeTestTypes'
+
+import dayjs from 'dayjs'
+
 // ** MUI Imports
-import Button from '@mui/material/Button'
+// import Button from '@mui/material/Button'
 
 // ** Icon Imports
-import Icon from 'src/@core/components/icon'
+// import Icon from 'src/@core/components/icon'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -43,7 +49,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component='div'>{children}</Typography>
         </Box>
       )}
     </div>
@@ -57,7 +63,11 @@ function a11yProps(index: number) {
   }
 }
 
-export default function Introduction() {
+interface IntroductionProps {
+  initialData?: TestType | null
+}
+
+export default function Introduction({ initialData = null }: IntroductionProps) {
   const {
     test,
     setTest,
@@ -66,26 +76,44 @@ export default function Introduction() {
     setTestName,
     category,
     setCategory,
+    setCategoryIndex,
     description,
     setDescription,
     selectedTime,
     setSelectedTime,
     isPaid,
-    setIsPaid
+    setIsPaid,
+    difficulty,
+    setDifficulty
   } = useContext(TestContext)
 
-  const [data, setData] = useState([])
+  type DataType = {
+    id: number
+    name: string
+  }
+
+  const [data, setData] = useState<DataType[]>([])
+  const [diffcultyLevelList, setDiffcultyLevelList] = useState<DataType[]>([])
 
   // const [time, setTime] = useState<Date | null>(new Date())
 
-  const [difficulty, setDifficulty] = useState('')
+  // const [difficulty, setDifficulty] = useState('')
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    if (initialData) {
+      setTest(initialData.questions)
+      setTestName(initialData.testName)
+      setDescription(initialData.description)
+      setCategory(initialData.testType)
+      setSelectedTime(dayjs(initialData.timeLimit, 'HH:mm:ss'))
+      setIsPaid(initialData.isPaid)
+      console.log('initialData.difficultLevel: ', initialData.difficultLevel)
+      setDifficulty(initialData.difficultLevel)
+    }
+  }, [initialData, setTest, setDescription, setTestName, setCategory, setSelectedTime, setIsPaid, setDifficulty])
 
   const fetchData = async () => {
     try {
@@ -106,6 +134,31 @@ export default function Introduction() {
     }
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const fetchDifficultyLevel = async () => {
+    try {
+      const response = await fetch('https://iqtest-server.onrender.com/api/difficultyLevel/', {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+
+      const data = await response.json()
+      setDiffcultyLevelList(data)
+    } catch (error) {
+      console.error('Error fetching diffculty level:', error)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+    fetchDifficultyLevel()
+  }, [fetchDifficultyLevel])
+
   const handleAddQuestion = () => {
     const currentLength = test.length
     setTest(prevTest => [
@@ -121,6 +174,8 @@ export default function Introduction() {
 
   const handleChangeSelect = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string)
+    const index = data.findIndex(item => item.name === value.toString())
+    setCategoryIndex(index)
   }
 
   const [value, setValue] = React.useState(0)
@@ -171,20 +226,15 @@ export default function Introduction() {
               {test.map((question, index) => (
                 <Tab
                   key={index}
-                  label={
-                    <>
-                      {question.questionName}
-                      {/* <button onClick={() => handleRemoveQuestion(index)}>Remove</button> */}
-                      <Button
-                        variant='contained'
-                        color='secondary'
-                        startIcon={<Icon icon='mdi:delete-outline' />}
-                        onClick={() => handleRemoveQuestion(index)}
-                      >
-                        Delete
-                      </Button>
-                    </>
+                  icon={
+                    <DeleteOutlineIcon
+                      onClick={event => {
+                        event.stopPropagation()
+                        handleRemoveQuestion(index)
+                      }}
+                    />
                   }
+                  label={question.questionName}
                   {...a11yProps(index)}
                 />
               ))}
@@ -242,9 +292,16 @@ export default function Introduction() {
                   label='Difficulty'
                   onChange={e => setDifficulty(e.target.value)}
                 >
-                  <MenuItem value={'easy'}>Easy</MenuItem>
+                  {diffcultyLevelList &&
+                    diffcultyLevelList.map((item: any) => (
+                      <MenuItem key={item.id} value={item.name}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+
+                  {/* <MenuItem value={'easy'}>Easy</MenuItem>
                   <MenuItem value={'medium'}>Medium</MenuItem>
-                  <MenuItem value={'hard'}>Hard</MenuItem>
+                  <MenuItem value={'hard'}>Hard</MenuItem> */}
                 </Select>
               </FormControl>
             </Box>

@@ -29,6 +29,10 @@ export type QuestionType = {
   answer10?: string
   correctAnswer: number
   point: number
+  questionType?: string
+  difficultLevel?: string
+  imagePath?: string
+  test?: TestType
 }
 
 export type AnswerType = {

@@ -1,14 +1,15 @@
 import * as React from 'react'
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import Grid from '@mui/material/Grid'
 import TurnRightIcon from '@mui/icons-material/TurnRight'
 import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
+import { useRouter } from 'next/router'
 
 // import dayjs, { Dayjs } from 'dayjs'
 
 // ** Styled Component Import
-import { CreateTestWrapper, SubmitButton } from 'src/@core/styles/libs/create-test'
+import { EditTestWrapper, SubmitButton } from 'src/@core/styles/libs/edit-test'
 import Introduction from 'src/views/components/create-test/Introduction'
 import { TestContext } from 'src/context/TestContext'
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar'
@@ -17,11 +18,16 @@ import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar'
 // import { TestContext } from 'src/context/TestContext'
 // import { useState } from 'react'
 
-const CreateTest = () => {
+const EditTest = () => {
   // Get the context value
   // Get the context value
   const { test, testName, category, categoryIndex, description, selectedTime, isPaid, difficulty } =
     useContext(TestContext)
+
+  const router = useRouter()
+  const { id } = router.query // Lấy id từ route
+
+  const [testData, setTestData] = useState(null)
 
   // Add state for alert
   const [alert, setAlert] = useState<{
@@ -45,6 +51,22 @@ const CreateTest = () => {
       show: false
     }))
   }
+
+  useEffect(() => {
+    if (!id) return
+
+    const fetchTestData = async () => {
+      try {
+        const response = await fetch(`https://iqtest-server.onrender.com/api/tests/${id}`)
+        const data = await response.json()
+        setTestData(data)
+      } catch (error) {
+        console.error('Error fetching test data:', error)
+      }
+    }
+
+    fetchTestData()
+  }, [id])
 
   const handleSubmit = async () => {
     const emptyAnswers = {
@@ -80,21 +102,21 @@ const CreateTest = () => {
           return acc
         }, {}),
         correctAnswer: question.correctAnswer,
-        point: 5,
+        point: 1,
         questionType: question.questionType, // Update it accordingly
         difficultLevel: question.difficultLevel, // Update it accordingly
         imagePath: question.imagePath // Update it accordingly
       }))
     }
 
-    console.log('Payload: ', payload)
+    console.log('Payload update: ', payload)
 
-    const response = await fetch('https://iqtest-server.onrender.com/api/tests/', {
-      method: 'POST',
+    const response = await fetch(`https://iqtest-server.onrender.com/api/tests/${id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(testData)
     })
 
     const responseData = await response.json()
@@ -113,20 +135,21 @@ const CreateTest = () => {
     window.location.reload()
   }
 
+  if (!testData) return <div>Loading...</div>
+
   return (
-    <CreateTestWrapper>
+    <EditTestWrapper>
       <Grid container spacing={2}>
         <Grid item xs={9}>
-          <Introduction />
+          <Introduction initialData={testData} />
         </Grid>
         <Grid item xs={3}>
           <SubmitButton onClick={handleSubmit}>
             <Button variant='contained' startIcon={<TurnRightIcon />}>
-              add new test
+              Update Test
             </Button>
           </SubmitButton>
 
-          {/* Add Alert component here */}
           <Snackbar open={alert.show} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleAlertClose} severity={alert.severity} sx={{ width: '100%' }}>
               {alert.message}
@@ -134,8 +157,8 @@ const CreateTest = () => {
           </Snackbar>
         </Grid>
       </Grid>
-    </CreateTestWrapper>
+    </EditTestWrapper>
   )
 }
 
-export default CreateTest
+export default EditTest

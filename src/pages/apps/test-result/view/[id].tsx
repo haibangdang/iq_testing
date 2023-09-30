@@ -58,4 +58,9 @@ const TestResultDetail = () => {
   )
 }
 
+TestResultDetail.acl = {
+  action: 'read',
+  subject: 'acl-page'
+}
+
 export default TestResultDetail

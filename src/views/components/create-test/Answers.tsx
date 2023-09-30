@@ -32,7 +32,7 @@ export default function Answers({
 
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-      <List component='nav' aria-label='secondary mailbox folder'>
+      <List component='div' aria-label='secondary mailbox folder'>
         {answers.map((answer, index) => (
           <Box key={index} sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
             <ClickAwayListener onClickAway={() => handleAnswerChange(index, answer)}>

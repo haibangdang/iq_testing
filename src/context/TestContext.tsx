@@ -8,12 +8,16 @@ interface ITestContext {
   setTestName: React.Dispatch<React.SetStateAction<string>>
   category: string
   setCategory: React.Dispatch<React.SetStateAction<string>>
+  categoryIndex: number | null
+  setCategoryIndex: React.Dispatch<React.SetStateAction<number | null>>
   description: string
   setDescription: React.Dispatch<React.SetStateAction<string>>
   selectedTime: Dayjs | null
   setSelectedTime: React.Dispatch<React.SetStateAction<Dayjs | null>>
   isPaid: boolean
   setIsPaid: React.Dispatch<React.SetStateAction<boolean>>
+  difficulty: string
+  setDifficulty: React.Dispatch<React.SetStateAction<string>>
   handleAddAnswer: (questionIndex: number) => void
   handleSetCorrectAnswer: (questionIndex: number, answerIndex: number) => void
   handleUpdateQuestionText: (questionIndex: number, newText: string) => void
@@ -35,6 +39,10 @@ const TestContext = createContext<ITestContext>({
   setCategory: () => {
     throw new Error('setCategory function must be overridden')
   },
+  categoryIndex: null,
+  setCategoryIndex: () => {
+    throw new Error('setCategoryIndex function must be overridden')
+  },
   description: '',
   setDescription: () => {
     throw new Error('setDescription function must be overridden')
@@ -46,6 +54,10 @@ const TestContext = createContext<ITestContext>({
   isPaid: false,
   setIsPaid: () => {
     throw new Error('setIsPaid function must be overridden')
+  },
+  difficulty: '',
+  setDifficulty: () => {
+    throw new Error('setDifficulty function must be overridden')
   },
   handleAddAnswer: () => {
     throw new Error('handleAddAnswer function must be overridden')
@@ -80,14 +92,23 @@ const TestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
   const [testName, setTestName] = useState('')
   const [category, setCategory] = useState('')
+  const [categoryIndex, setCategoryIndex] = useState<number | null>(null)
   const [description, setDescription] = useState('')
   const [selectedTime, setSelectedTime] = useState<Dayjs | null>(dayjs('2022-04-17T15:30'))
   const [isPaid, setIsPaid] = useState(false)
+
+  const [difficulty, setDifficulty] = useState<string>('')
 
   // Add logic to handle adding an answer to a specific question
   const handleAddAnswer = (questionIndex: number) => {
     setTest(prevTest => {
       const newTest = [...prevTest]
+
+      // if (!newTest[questionIndex]) {
+      //   console.error(`Question with index ${questionIndex} does not exist`)
+
+      //   return prevTest
+      // }
 
       if (newTest[questionIndex].answers.length < 10) {
         const newQuestion = {
@@ -141,6 +162,13 @@ const TestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
         return prevTest
       }
+
+      // if (!newTest[questionIndex] || !newTest[questionIndex].answers) {
+      //   console.error(`Question or answers array does not exist for index ${questionIndex}`)
+
+      //   return prevTest
+      // }
+
       if (newTest[questionIndex].answers[answerIndex] === undefined) {
         console.error(`Answer with index ${answerIndex} does not exist for question ${questionIndex}`)
 
@@ -191,12 +219,16 @@ const TestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
     setTestName,
     category,
     setCategory,
+    categoryIndex,
+    setCategoryIndex,
     description,
     setDescription,
     selectedTime,
     setSelectedTime,
     isPaid,
     setIsPaid,
+    difficulty,
+    setDifficulty,
     handleAddAnswer,
     handleSetCorrectAnswer,
     handleUpdateQuestionText,

@@ -1,97 +1,77 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
+import { Dispatch } from 'redux'
 
-// import { Dispatch } from 'redux'
+// ** Test Type Definition
+interface Test {
+  id: number
+  name: string
+  testTypeId: number
+  description: string
+  timeLimit: string
+  totalQuestion: number
+  status: string | null
+  explanation: string | null
+  difficultLevel: string | null
+  isPaid: boolean
+}
 
-// ** Fetch all Tests
-export const fetchAllTest = createAsyncThunk('fetchAllTests', async () => {
-  try {
-    const response = await fetch('https://iqtest-server.onrender.com/api/tests', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+interface Redux {
+  getState: any
+  dispatch: Dispatch<any>
+}
 
-    if (!response.ok) {
-      throw new Error('Request failed');
-    }
+interface TestsState {
+  tests: Test[]
+  status: 'idle' | 'loading' | 'succeeded' | 'failed'
+  error: string | null
+}
 
-    const responseData = await response.json();
+const initialState: TestsState = {
+  tests: [],
+  status: 'idle',
+  error: null
+}
 
-return responseData;
+// ** Fetch Tests Thunk
+export const fetchData = createAsyncThunk('tests/fetchTests', async () => {
+  const response = await axios.get('https://iqtest-server.onrender.com/api/tests')
 
-  } catch (error:any) {
-    throw new Error(error.message);
-  }
-});
-
-// ** Select Chat
-export const selectedTest = createAsyncThunk('selectedTest',async (id: number|undefined) => {
-  try {
-    const response = await fetch(`https://iqtest-server.onrender.com/api/tests/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Request failed');
-    }
-
-    const responseData = await response.json();
-
-    console.log('selectedTest', responseData);
-
-  return responseData;
-
-  } catch (error:any) {
-    throw new Error(error.message);
-  }
+  return response.data.test
 })
 
-// ** Delete test
-// export const deleteTest = createAsyncThunk('deleteTest', async (id: number, { dispatch }) => {
-//   try {
-//     const response = await fetch('https://iqtest-server.onrender.com/api/tests', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     });
+// ** Delete Test Thunk
+export const deleteTest = createAsyncThunk('tests/deleteTest', async (id: number | string, { dispatch }: Redux) => {
+  const respond = await axios.delete(`https://iqtest-server.onrender.com/api/tests/${id}`)
 
-//     if (!response.ok) {
-//       throw new Error('Request failed');
-//     }
+  // return id
+  dispatch(fetchData())
 
-//     const responseData = await response.json();
+  return respond.data.test
+})
 
-//     await dispatch(fetchAllTest())
-
-
-//     return responseData;
-
-//   } catch (error:any) {
-//     throw new Error(error.message);
-//   }
-// })
-
-export const testSlice = createSlice({
-  name: 'appChat',
-  initialState: {
-    test: [],
-    selectedTest: null
-  },
+// ** Tests Slice
+export const testsSlice = createSlice({
+  name: 'tests',
+  initialState,
   reducers: {},
-
   extraReducers: builder => {
-    builder.addCase(fetchAllTest.fulfilled, (state, action) => {
-      state.test = action.payload.test
-    })
-    builder.addCase(selectedTest.fulfilled, (state, action) => {
-      state.selectedTest = action.payload
-    })
+    builder
+      .addCase(fetchData.pending, state => {
+        state.status = 'loading'
+      })
+      .addCase(fetchData.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        state.tests = action.payload
+      })
+      .addCase(fetchData.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message || 'Failed to fetch tests'
+      })
+      .addCase(deleteTest.fulfilled, (state, action) => {
+        state.tests = state.tests.filter(test => test.id !== action.payload)
+      })
   }
 })
 
-export default testSlice.reducer
+export default testsSlice.reducer

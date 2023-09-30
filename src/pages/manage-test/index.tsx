@@ -39,7 +39,8 @@ import CardStatisticsHorizontal from 'src/@core/components/card-statistics/card-
 import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Actions Imports
-import { fetchData, deleteUser } from 'src/store/apps/user'
+import { deleteUser } from 'src/store/apps/user'
+import { fetchData, deleteTest } from 'src/store/apps/test'
 
 // ** Third Party Components
 import axios from 'axios'
@@ -132,8 +133,18 @@ const RowOptions = ({ id }: { id: number | string }) => {
   }
 
   const handleDelete = () => {
-    dispatch(deleteUser(id))
+    dispatch(deleteTest(Number(id)))
     handleRowOptionsClose()
+  }
+
+  let role = 'client'
+  if (typeof window !== 'undefined') {
+    const userDataString = window.localStorage.getItem('userData')
+
+    if (userDataString) {
+      const userData = JSON.parse(userDataString)
+      role = userData.role
+    }
   }
 
   return (
@@ -160,19 +171,27 @@ const RowOptions = ({ id }: { id: number | string }) => {
           component={Link}
           sx={{ '& svg': { mr: 2 } }}
           onClick={handleRowOptionsClose}
-          href='/apps/user/view/overview/'
+          href={`/apps/test/view/${id}`}
         >
           <Icon icon='mdi:eye-outline' fontSize={20} />
           View
         </MenuItem>
-        <MenuItem onClick={handleRowOptionsClose} sx={{ '& svg': { mr: 2 } }}>
-          <Icon icon='mdi:pencil-outline' fontSize={20} />
-          Edit
-        </MenuItem>
-        <MenuItem onClick={handleDelete} sx={{ '& svg': { mr: 2 } }}>
-          <Icon icon='mdi:delete-outline' fontSize={20} />
-          Delete
-        </MenuItem>
+        {role === 'admin' && [
+          <MenuItem
+            key='edit'
+            component={Link}
+            onClick={handleRowOptionsClose}
+            href={`/edit-test/${id}`}
+            sx={{ '& svg': { mr: 2 } }}
+          >
+            <Icon icon='mdi:pencil-outline' fontSize={20} />
+            Edit
+          </MenuItem>,
+          <MenuItem key='delete' onClick={handleDelete} sx={{ '& svg': { mr: 2 } }}>
+            <Icon icon='mdi:delete-outline' fontSize={20} />
+            Delete
+          </MenuItem>
+        ]}
       </Menu>
     </>
   )
@@ -274,7 +293,9 @@ const ManageTest = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>)
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
 
-  const [tests, setTests] = useState([])
+  // const [tests, setTests] = useState([])
+
+  const tests = useSelector((state: RootState) => state.test.tests)
 
   const testColumns: GridColDef[] = [
     {
@@ -364,43 +385,15 @@ const ManageTest = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>)
     }
   ]
 
-  useEffect(() => {
-    const getTests = async () => {
-      try {
-        const res = await fetch('https://iqtest-server.onrender.com/api/tests', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`)
-        }
-        const data = await res.json()
-        console.log(data)
-        setTests(data.test)
-      } catch (error) {
-        console.error('An error occurred while fetching the tests.', error)
-      }
-    }
-
-    getTests()
-  }, [])
-
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  const store = useSelector((state: RootState) => state.user)
+  // const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   dispatch(
-  //     fetchData({
-  //       role,
-  //       status,
-  //       q: value,
-  //       currentPlan: plan
-  //     })
-  //   )
-  // }, [dispatch, plan, role, status, value])
+  useEffect(() => {
+    dispatch(fetchData())
+  }, [dispatch])
+
+  const store = useSelector((state: RootState) => state.user)
 
   const handleFilter = useCallback((val: string) => {
     setValue(val)

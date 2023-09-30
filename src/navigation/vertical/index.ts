@@ -75,6 +75,8 @@ const navigation = (): VerticalNavItemsType => {
     {
       icon: 'fluent-mdl2:test-auto-solid',
       title: 'Test Management',
+      action: 'read',
+      subject: 'acl-page',
       children: [
         {
           title: 'Create Test',
@@ -82,29 +84,33 @@ const navigation = (): VerticalNavItemsType => {
         },
         {
           title: 'Manage Tests',
-          path: '/manage-test'
+          path: '/manage-test',
+          action: 'read',
+          subject: 'acl-page'
         }
       ]
     },
     {
       icon: 'bx:test-tube',
-      title: 'Test IQ',
+      title: 'Test History',
+      path: '/test-history',
       action: 'read',
-      subject: 'acl-page',
-      children: [
-        {
-          title: 'Take Test',
-          path: '/take-test',
-          action: 'read',
-          subject: 'acl-page'
-        },
-        {
-          title: 'Test History',
-          path: '/test-history',
-          action: 'read',
-          subject: 'acl-page'
-        }
-      ]
+      subject: 'acl-page'
+
+      // children: [
+      //   {
+      //     title: 'Take Test',
+      //     path: '/take-test',
+      //     action: 'read',
+      //     subject: 'acl-page'
+      //   },
+      //   {
+      //     title: 'Test History',
+      //     path: '/test-history',
+      //     action: 'read',
+      //     subject: 'acl-page'
+      //   }
+      // ]
     },
 
     // {

@@ -31,7 +31,9 @@ async function fetchUsers(): Promise<UserDataType[]> {
 
     const data = await response.json()
 
-    return data.map((user: any) => normalizeUser(user))
+    const result = data.map((user: any) => normalizeUser(user))
+
+    return result
   } catch (error) {
     console.error('Failed to fetch users:', error)
 
