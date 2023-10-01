@@ -105,6 +105,7 @@ export default function Introduction({ initialData = null }: IntroductionProps) 
   useEffect(() => {
     if (initialData) {
       setTest(initialData.questions)
+      console.log('initialData.questions: ', initialData.questions)
       setTestName(initialData.testName)
       setDescription(initialData.description)
       setCategory(initialData.testType)
@@ -157,7 +158,7 @@ export default function Introduction({ initialData = null }: IntroductionProps) 
   useEffect(() => {
     fetchData()
     fetchDifficultyLevel()
-  }, [fetchDifficultyLevel])
+  }, [])
 
   const handleAddQuestion = () => {
     const currentLength = test.length
@@ -174,7 +175,9 @@ export default function Introduction({ initialData = null }: IntroductionProps) 
 
   const handleChangeSelect = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string)
-    const index = data.findIndex(item => item.name === value.toString())
+
+    const index = data.findIndex(item => item.name === event.target.value.toString())
+
     setCategoryIndex(index)
   }
 

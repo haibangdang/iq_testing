@@ -22,6 +22,7 @@ interface Redux {
 }
 
 interface TestsState {
+  selectedTest: any
   tests: Test[]
   status: 'idle' | 'loading' | 'succeeded' | 'failed'
   error: string | null
@@ -30,7 +31,8 @@ interface TestsState {
 const initialState: TestsState = {
   tests: [],
   status: 'idle',
-  error: null
+  error: null,
+  selectedTest: null
 }
 
 // ** Fetch Tests Thunk
@@ -38,6 +40,13 @@ export const fetchData = createAsyncThunk('tests/fetchTests', async () => {
   const response = await axios.get('https://iqtest-server.onrender.com/api/tests')
 
   return response.data.test
+})
+
+// ** Fetch Tests Thunk
+export const selectedTest = createAsyncThunk('tests/selectedTest', async (id: number | string) => {
+  const response = await axios.get(`https://iqtest-server.onrender.com/api/tests/${id}`)
+
+  return response.data
 })
 
 // ** Delete Test Thunk

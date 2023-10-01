@@ -67,7 +67,7 @@ function TabPanel(props: TabPanelProps) {
                 key={i}
                 value={`${i}_${answer}`}
                 control={<Radio disabled={!testStarted} />}
-                label={answer}
+                label={answer.toString()}
               />
             ))}
           </RadioGroup>

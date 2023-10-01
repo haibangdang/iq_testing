@@ -16,6 +16,10 @@ const Question: React.FC<QuestionProps> = ({ index }) => {
     useContext(TestContext)
   const question = test[index]
 
+  console.log('Test in create: ', test)
+
+  console.log('Question in create: ', question)
+
   const handleAddAnswerClick = () => {
     handleAddAnswer(index)
   }
@@ -68,7 +72,7 @@ const Question: React.FC<QuestionProps> = ({ index }) => {
       <Grid item xs={12} md={12}>
         <Answers
           index={index}
-          answers={question.answers}
+          answers={!question.answers || question.answers.length === 0 ? transformedAnswers : question.answers}
           correctAnswer={question.correctAnswer}
           handleListItemClick={handleListItemClick}
           handleAddAnswer={handleAddAnswerClick}

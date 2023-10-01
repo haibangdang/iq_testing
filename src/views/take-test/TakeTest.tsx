@@ -52,14 +52,14 @@ function a11yProps(index: number) {
 }
 
 // export default function TakeTest() {
-const TakeTestIQ = ({id} : TakeTestLayoutProps) => {
+const TakeTestIQ = ({ id }: TakeTestLayoutProps) => {
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
-    dispatch(selectedTest(id))
-  }, [dispatch])
+    dispatch(selectedTest(Number(id)))
+  }, [dispatch, id])
 
   const store = useSelector((state: RootState) => state.test.selectedTest)
-  console.log('store selected test', store);
+  console.log('store selected test', store)
   const [value, setValue] = React.useState(0)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -77,9 +77,9 @@ const TakeTestIQ = ({id} : TakeTestLayoutProps) => {
           sx={{ borderRight: 1, borderColor: 'divider' }}
         >
           {/* @ts-ignore */}
-          {store && store.questions && store.questions.map((item: any) => (
-          <Tab key={item.id} label={item.questionText} {...a11yProps(item.id)} />
-          ))}
+          {store &&
+            store.questions &&
+            store.questions.map((item: any) => <Tab key={item.id} label={item.questionText} {...a11yProps(item.id)} />)}
         </Tabs>
         <TabPanel value={value} index={0}>
           Content of Question 01
