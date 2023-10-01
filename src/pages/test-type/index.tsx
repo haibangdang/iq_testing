@@ -25,9 +25,8 @@ import { TestType } from 'src/types/apps/takeTestTypes'
 
 // ** Styled Components
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
-import { fetchAllTest } from 'src/store/apps/test'
+import { fetchData } from 'src/store/apps/test'
 import Typography from '@mui/material/Typography'
-
 
 interface CellType {
   row: TestType
@@ -38,7 +37,6 @@ const LinkStyled = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
   color: theme.palette.primary.main
 }))
-
 
 const defaultColumns: GridColDef[] = [
   {
@@ -79,7 +77,6 @@ const defaultColumns: GridColDef[] = [
 ]
 
 const TestType = () => {
-
   // ** State
   // const [selectedRows, setSelectedRows] = useState<GridRowId[]>([])
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
@@ -89,13 +86,12 @@ const TestType = () => {
 
   // Fetch the test data when the component mounts
   useEffect(() => {
-    dispatch(fetchAllTest());
-  }, [dispatch]);
+    dispatch(fetchData())
+  }, [dispatch])
 
   // Access the test data from the Redux store
-  const store = useSelector((state: RootState) => state.test);
-  console.log('store', store.test);
-
+  const store = useSelector((state: RootState) => state.test)
+  console.log('store', store.tests)
 
   const columns: GridColDef[] = [
     ...defaultColumns,
@@ -125,7 +121,7 @@ const TestType = () => {
             <DataGrid
               autoHeight
               pagination
-              rows={store.test}
+              rows={store.tests}
               columns={columns}
               checkboxSelection
               disableRowSelectionOnClick
