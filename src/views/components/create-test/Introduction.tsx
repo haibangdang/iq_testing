@@ -234,7 +234,7 @@ export default function Introduction({ initialData = null }: IntroductionProps) 
                       }}
                     />
                   }
-                  label={question.questionName}
+                  label={`Question ${index + 1}`}
                   {...a11yProps(index)}
                 />
               ))}
