@@ -35,7 +35,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     console.error('fetch data: ', data)
 
-    const testsArray = data && data.test && Array.isArray(data.test) ? data.test : []
+    const testsArray = data?.test ?? []
 
     const paths = testsArray.map((item: TestType) => ({
       params: { id: `${item.id}` }
