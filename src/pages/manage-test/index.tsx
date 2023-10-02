@@ -416,14 +416,20 @@ const ManageTest = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>)
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Box>
+            <h1>Manage Test</h1>
+            <Box></Box>
+          </Box>
+        </Box>
         <Card>
-          <TableHeader
+          {/* <TableHeader
             value={value}
             handleFilter={handleFilter}
             toggle={toggleAddUserDrawer}
             searchPlaceholder={'Search Test'}
             addButtonLabel={'Add Test'}
-          />
+          /> */}
           <DataGrid
             autoHeight
             // rows={store.data}

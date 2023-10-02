@@ -8,7 +8,7 @@ const TestPage = () => {
       <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box>
           <h1>Test History</h1>
-          <Box>VIew Your Test History</Box>
+          <Box>View Your Test History</Box>
         </Box>
       </Box>
       <Box sx={{ mt: 4 }}>

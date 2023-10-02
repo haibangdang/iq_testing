@@ -13,11 +13,11 @@ import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
 const series = [
   {
-    name: 'Income',
+    name: 'Score',
     data: [70, 90, 80, 95, 75, 90]
   },
   {
-    name: 'Net Worth',
+    name: 'Performance',
     data: [110, 72, 62, 65, 100, 75]
   }
 ]

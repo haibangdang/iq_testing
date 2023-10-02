@@ -1,3 +1,4 @@
+/*eslint-disable*/
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
@@ -33,27 +34,27 @@ const DashboardPage = () => {
         </Grid>
         <Grid item xs={6} md={2}>
           <CardStatisticsVertical
-            stats='155k'
+            stats='3'
             color='primary'
-            trendNumber='+22%'
-            title='Total Orders'
-            chipText='Last 4 Month'
-            icon={<Icon icon='mdi:cart-plus' />}
+            trendNumber=''
+            title='Total Tests Taken'
+            chipText='Last Week'
+            icon={<Icon icon='mdi:text-box-outline' />}
           />
         </Grid>
-        <Grid item xs={6} md={2}>
+        {/* <Grid item xs={6} md={2}>
           <AnalyticsSessions />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} md={8}>
           <AnalyticsTotalTransactions />
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <AnalyticsPerformance />
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        {/* <Grid item xs={12} sm={6} md={4}>
           <AnalyticsProjectStatistics />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        </Grid> */}
+        {/* <Grid item xs={12} sm={6} md={4}>
           <Grid container spacing={6}>
             <Grid item xs={6}>
               <AnalyticsTotalRevenue />
@@ -97,7 +98,7 @@ const DashboardPage = () => {
         </Grid>
         <Grid item xs={12} md={8}>
           <AnalyticsActivityTimeline />
-        </Grid>
+        </Grid> */}
       </Grid>
     </ApexChartWrapper>
   )

@@ -1,3 +1,4 @@
+/* eslint-disable */
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
@@ -146,7 +147,7 @@ const AppBarContent = (props: Props) => {
         <ModeToggler settings={settings} saveSettings={saveSettings} />
         {auth.user && (
           <>
-            <ShortcutsDropdown settings={settings} shortcuts={shortcuts} />
+            {/* <ShortcutsDropdown settings={settings} shortcuts={shortcuts} /> */}
             <NotificationDropdown settings={settings} notifications={notifications} />
             <UserDropdown settings={settings} />
           </>

@@ -110,7 +110,7 @@ const AnalyticsTotalTransactions = () => {
     <Card>
       <Grid container>
         <StyledGrid item xs={12} sm={7}>
-          <CardHeader title='Total Transactions' titleTypographyProps={{ sx: { letterSpacing: '0.15px' } }} />
+          <CardHeader title='Total Tests' titleTypographyProps={{ sx: { letterSpacing: '0.15px' } }} />
           <CardContent
             sx={{
               '& .apexcharts-series[rel="2"]': {
@@ -124,7 +124,7 @@ const AnalyticsTotalTransactions = () => {
         <Grid item xs={12} sm={5}>
           <CardHeader
             title='Report'
-            subheader='Last month transactions $234.40k'
+            subheader='Last month test'
             subheaderTypographyProps={{ sx: { lineHeight: 1.429 } }}
             titleTypographyProps={{ sx: { letterSpacing: '0.15px' } }}
             action={
@@ -150,18 +150,18 @@ const AnalyticsTotalTransactions = () => {
                   <Icon icon='mdi:trending-up' />
                 </CustomAvatar>
                 <Typography sx={{ mb: 0.5 }} variant='body2'>
-                  This Week
+                  This Week Score
                 </Typography>
-                <Typography sx={{ fontWeight: 600 }}>+82.45%</Typography>
+                <Typography sx={{ fontWeight: 600 }}>+5%</Typography>
               </Grid>
               <Grid item xs={6} sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                <CustomAvatar skin='light' sx={{ mb: 3 }} variant='rounded'>
+                {/* <CustomAvatar skin='light' sx={{ mb: 3 }} variant='rounded'>
                   <Icon icon='mdi:trending-down' />
-                </CustomAvatar>
-                <Typography sx={{ mb: 0.5 }} variant='body2'>
+                </CustomAvatar> */}
+                {/* <Typography sx={{ mb: 0.5 }} variant='body2'>
                   Last Week
                 </Typography>
-                <Typography sx={{ fontWeight: 600 }}>-24.86%</Typography>
+                <Typography sx={{ fontWeight: 600 }}>-24.86%</Typography> */}
               </Grid>
             </Grid>
             <Divider
@@ -176,11 +176,11 @@ const AnalyticsTotalTransactions = () => {
                 <Typography sx={{ mb: 0.5 }} variant='body2'>
                   Performance
                 </Typography>
-                <Typography sx={{ fontWeight: 600 }}>+94.15%</Typography>
+                <Typography sx={{ fontWeight: 600 }}>+5%</Typography>
               </Grid>
               <Grid item xs={6}>
-                <Button fullWidth variant='contained'>
-                  View Report
+                <Button fullWidth variant='contained' onClick={() => (window.location.href = '/manage-test')}>
+                  Take Test
                 </Button>
               </Grid>
             </Grid>

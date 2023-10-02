@@ -23,14 +23,16 @@ import format from 'date-fns/format'
 
 // ** Store & Actions Imports
 import { useDispatch } from 'react-redux'
-import { fetchData, deleteInvoice } from 'src/store/apps/invoice'
+
+// import { fetchData, deleteInvoice } from 'src/store/apps/invoice'
+import { fetchTestResult, deleteTestResult } from 'src/store/apps/test-result'
 
 // ** Types Imports
 import { AppDispatch } from 'src/store'
 import { TestResultType } from 'src/types/apps/takeTestTypes'
 
 // ** Custom Components Imports
-import OptionsMenu from 'src/@core/components/option-menu'
+// import OptionsMenu from 'src/@core/components/option-menu'
 import TableHeader from './TableHeader'
 
 // ** Styled Components
@@ -202,12 +204,7 @@ const HistoryTable = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    dispatch(
-      fetchData({
-        q: value,
-        status: ''
-      })
-    )
+    dispatch(fetchTestResult())
   }, [dispatch, value])
 
   useEffect(() => {
@@ -264,17 +261,17 @@ const HistoryTable = () => {
       headerName: 'Actions',
       renderCell: ({ row }: CellType) => (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title='Delete Invoice'>
-            <IconButton size='small' sx={{ mr: 0.5 }} onClick={() => dispatch(deleteInvoice(row.id))}>
+          <Tooltip title='Delete Test result'>
+            <IconButton size='small' sx={{ mr: 0.5 }} onClick={() => dispatch(deleteTestResult(row.id))}>
               <Icon icon='mdi:delete-outline' />
             </IconButton>
           </Tooltip>
           <Tooltip title='View'>
-            <IconButton size='small' component={Link} sx={{ mr: 0.5 }} href={`/apps/invoice/preview/${row.id}`}>
+            <IconButton size='small' component={Link} sx={{ mr: 0.5 }} href={`/apps/test-result/view/${row.id}`}>
               <Icon icon='mdi:eye-outline' />
             </IconButton>
           </Tooltip>
-          <OptionsMenu
+          {/* <OptionsMenu
             iconProps={{ fontSize: 20 }}
             iconButtonProps={{ size: 'small' }}
             menuProps={{ sx: { '& .MuiMenuItem-root svg': { mr: 2 } } }}
@@ -293,7 +290,7 @@ const HistoryTable = () => {
                 icon: <Icon icon='mdi:content-copy' fontSize={20} />
               }
             ]}
-          />
+          /> */}
         </Box>
       )
     }
