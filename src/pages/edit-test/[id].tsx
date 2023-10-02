@@ -14,6 +14,8 @@ import Introduction from 'src/views/components/create-test/Introduction'
 import { TestContext } from 'src/context/TestContext'
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar'
 
+// import { QuestionType } from 'src/types/apps/takeTestTypes'
+
 // import Answers from 'src/views/components/create-test/Answers'
 // import { TestContext } from 'src/context/TestContext'
 // import { useState } from 'react'
@@ -68,6 +70,10 @@ const EditTest = () => {
     fetchTestData()
   }, [id])
 
+  type AnswerAccumulator = {
+    [key: string]: string
+  }
+
   const handleSubmit = async () => {
     const emptyAnswers = {
       answer1: '',
@@ -82,6 +88,26 @@ const EditTest = () => {
       answer10: ''
     }
 
+    console.log('Test: ', test)
+    console.log('Test data: ', testData)
+
+    const extractAnswers = (question: { answers?: string[]; [key: string]: any }) => {
+      if (question.answers && question.answers.length) {
+        return question.answers.reduce((acc: AnswerAccumulator, curr, idx) => {
+          acc[`answer${idx + 1}`] = curr
+
+          return acc
+        }, {})
+      }
+
+      const extracted: AnswerAccumulator = {}
+      for (let i = 1; i <= 10; i++) {
+        extracted[`answer${i}`] = question[`answer${i}`] || ''
+      }
+
+      return extracted
+    }
+
     const payload = {
       name: testName,
       testTypeId: categoryIndex,
@@ -93,20 +119,26 @@ const EditTest = () => {
       difficultLevel: difficulty,
       isPaid: isPaid ? 1 : 0,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      questions: test.map((question, index) => ({
-        questionText: question.questionText,
-        ...emptyAnswers,
-        ...question.answers.reduce((acc: Record<string, string>, curr: string, idx: number) => {
-          acc[`answer${idx + 1}`] = curr
+      questions: test.map((question, index) => {
+        // Cơ bản lấy thông tin từ question
+        const questionInfo = {
+          id: null,
+          questionText: question.questionText.replace(/<\/?p>/g, ''),
+          ...emptyAnswers,
+          ...extractAnswers(question),
+          correctAnswer: question.correctAnswer,
+          point: 1,
+          questionType: question.questionType, // Update it accordingly
+          difficultLevel: question.difficultLevel, // Update it accordingly
+          imagePath: question.imagePath // Update it accordingly
+        }
 
-          return acc
-        }, {}),
-        correctAnswer: question.correctAnswer,
-        point: 1,
-        questionType: question.questionType, // Update it accordingly
-        difficultLevel: question.difficultLevel, // Update it accordingly
-        imagePath: question.imagePath // Update it accordingly
-      }))
+        if (question.id !== null && question.id !== undefined) {
+          questionInfo.id = question.id
+        }
+
+        return questionInfo
+      })
     }
 
     console.log('Payload update: ', payload)
@@ -116,7 +148,7 @@ const EditTest = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(testData)
+      body: JSON.stringify(payload)
     })
 
     const responseData = await response.json()

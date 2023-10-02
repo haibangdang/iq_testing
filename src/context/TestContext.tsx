@@ -157,18 +157,22 @@ const TestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const handleAnswerChange = (questionIndex: number, answerIndex: number, newAnswer: string) => {
     setTest(prevTest => {
       const newTest = [...prevTest]
-      if (newTest[questionIndex] === undefined) {
+
+      // Check if question exists
+      if (!newTest[questionIndex]) {
         console.error(`Question with index ${questionIndex} does not exist`)
 
         return prevTest
       }
 
-      // if (!newTest[questionIndex] || !newTest[questionIndex].answers) {
-      //   console.error(`Question or answers array does not exist for index ${questionIndex}`)
+      // Check if answers array exists and is valid
+      if (!newTest[questionIndex].answers || !Array.isArray(newTest[questionIndex].answers)) {
+        console.error(`Question or answers array does not exist for index ${questionIndex}`)
 
-      //   return prevTest
-      // }
+        return prevTest
+      }
 
+      // Check if the answer at the given index exists
       if (newTest[questionIndex].answers[answerIndex] === undefined) {
         console.error(`Answer with index ${answerIndex} does not exist for question ${questionIndex}`)
 

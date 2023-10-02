@@ -90,10 +90,12 @@ export default function Introduction({ initialData = null }: IntroductionProps) 
   type DataType = {
     id: number
     name: string
+    description?: string
   }
 
   const [data, setData] = useState<DataType[]>([])
   const [diffcultyLevelList, setDiffcultyLevelList] = useState<DataType[]>([])
+  const [testTypeList, setTestTypeList] = useState<DataType[]>([])
 
   // const [time, setTime] = useState<Date | null>(new Date())
 
@@ -109,12 +111,29 @@ export default function Introduction({ initialData = null }: IntroductionProps) 
       setTestName(initialData.testName)
       setDescription(initialData.description)
       setCategory(initialData.testType)
+
+      const selectedCategoryItem = testTypeList.find(item => item.name === initialData.testType.toString())
+
+      if (selectedCategoryItem) {
+        setCategoryIndex(selectedCategoryItem.id)
+      }
       setSelectedTime(dayjs(initialData.timeLimit, 'HH:mm:ss'))
       setIsPaid(initialData.isPaid)
       console.log('initialData.difficultLevel: ', initialData.difficultLevel)
       setDifficulty(initialData.difficultLevel)
     }
-  }, [initialData, setTest, setDescription, setTestName, setCategory, setSelectedTime, setIsPaid, setDifficulty])
+  }, [
+    initialData,
+    setTest,
+    setDescription,
+    setTestName,
+    setCategory,
+    setCategoryIndex,
+    setSelectedTime,
+    setIsPaid,
+    setDifficulty,
+    testTypeList
+  ])
 
   const fetchData = async () => {
     try {
@@ -155,9 +174,30 @@ export default function Introduction({ initialData = null }: IntroductionProps) 
     }
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const fetchTestType = async () => {
+    try {
+      const response = await fetch('https://iqtest-server.onrender.com/api/testtypes/', {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+
+      const data = await response.json()
+      setTestTypeList(data)
+    } catch (error) {
+      console.error('Error fetching test type:', error)
+    }
+  }
+
   useEffect(() => {
     fetchData()
     fetchDifficultyLevel()
+    fetchTestType()
   }, [])
 
   const handleAddQuestion = () => {
