@@ -439,7 +439,7 @@ const ManageTest = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>)
         </Card>
       </Grid>
 
-      <AddUserDrawer open={addUserOpen} toggle={toggleAddUserDrawer} />
+      {/* <AddUserDrawer open={addUserOpen} toggle={toggleAddUserDrawer} /> */}
     </Grid>
   )
 }

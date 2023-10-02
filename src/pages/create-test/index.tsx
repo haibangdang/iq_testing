@@ -47,6 +47,7 @@ const CreateTest = () => {
   }
 
   const handleSubmit = async () => {
+    console.log('Start create new test')
     const emptyAnswers = {
       answer1: '',
       answer2: '',
@@ -72,7 +73,7 @@ const CreateTest = () => {
       isPaid: isPaid ? 1 : 0,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       questions: test.map((question, index) => ({
-        questionText: question.questionText,
+        questionText: question.questionText.replace(/<\/?p>/g, ''),
         ...emptyAnswers,
         ...question.answers.reduce((acc: Record<string, string>, curr: string, idx: number) => {
           acc[`answer${idx + 1}`] = curr
@@ -87,7 +88,7 @@ const CreateTest = () => {
       }))
     }
 
-    console.log('Payload: ', payload)
+    console.log('Payload for create: ', payload)
 
     const response = await fetch('https://iqtest-server.onrender.com/api/tests/', {
       method: 'POST',
@@ -107,6 +108,11 @@ const CreateTest = () => {
       // Handle success
       console.log('Success!')
       setAlert({ show: true, message: `Success!`, severity: 'success' })
+
+      // window.location.reload()
+      // setTimeout(() => {
+      //   router.push('/manage-test/')
+      // }, 5000)
     }
 
     // Reload the page after submit

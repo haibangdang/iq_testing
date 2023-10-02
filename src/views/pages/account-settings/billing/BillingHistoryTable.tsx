@@ -307,12 +307,7 @@ const BillingHistoryTable = () => {
               alignItems: 'center'
             }}
           >
-            <TextField
-              size='small'
-              value={value}
-              placeholder='Search Invoice'
-              onChange={e => handleFilter(e.target.value)}
-            />
+            <TextField size='small' value={value} placeholder='Search' onChange={e => handleFilter(e.target.value)} />
             <FormControl size='small'>
               <InputLabel id='invoice-status-select'>Invoice Status</InputLabel>
               <Select

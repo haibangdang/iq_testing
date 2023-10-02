@@ -139,22 +139,22 @@ const navigation = (): VerticalNavItemsType => {
       title: 'Payment Management',
       icon: 'mdi:file-document-outline',
       children: [
-        {
-          title: 'List',
-          path: '/apps/invoice/list'
-        },
-        {
-          title: 'Preview',
-          path: '/apps/invoice/preview'
-        },
-        {
-          title: 'Edit',
-          path: '/apps/invoice/edit'
-        },
-        {
-          title: 'Add',
-          path: '/apps/invoice/add'
-        },
+        // {
+        //   title: 'List',
+        //   path: '/apps/invoice/list'
+        // },
+        // {
+        //   title: 'Preview',
+        //   path: '/apps/invoice/preview'
+        // },
+        // {
+        //   title: 'Edit',
+        //   path: '/apps/invoice/edit'
+        // },
+        // {
+        //   title: 'Add',
+        //   path: '/apps/invoice/add'
+        // },
         {
           title: 'Pricing',
           path: '/pages/pricing',
@@ -230,32 +230,33 @@ const navigation = (): VerticalNavItemsType => {
           path: '/pages/account-settings/account',
           action: 'read',
           subject: 'acl-page'
-        },
-        {
-          title: 'Security',
-          path: '/pages/account-settings/security',
-          action: 'read',
-          subject: 'acl-page'
-        },
-        {
-          title: 'Billing',
-          path: '/pages/account-settings/billing',
-          action: 'read',
-          subject: 'acl-page'
-        },
-        {
-          title: 'Notifications',
-          path: '/pages/account-settings/notifications',
-          action: 'read',
-          subject: 'acl-page'
-        },
-
-        {
-          title: 'Connections',
-          path: '/pages/account-settings/connections',
-          action: 'read',
-          subject: 'acl-page'
         }
+
+        // {
+        //   title: 'Security',
+        //   path: '/pages/account-settings/security',
+        //   action: 'read',
+        //   subject: 'acl-page'
+        // },
+        // {
+        //   title: 'Billing',
+        //   path: '/pages/account-settings/billing',
+        //   action: 'read',
+        //   subject: 'acl-page'
+        // },
+        // {
+        //   title: 'Notifications',
+        //   path: '/pages/account-settings/notifications',
+        //   action: 'read',
+        //   subject: 'acl-page'
+        // },
+
+        // {
+        //   title: 'Connections',
+        //   path: '/pages/account-settings/connections',
+        //   action: 'read',
+        //   subject: 'acl-page'
+        // }
       ]
     },
 

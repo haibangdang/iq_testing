@@ -176,9 +176,15 @@ export default function Introduction({ initialData = null }: IntroductionProps) 
   const handleChangeSelect = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string)
 
-    const index = data.findIndex(item => item.name === event.target.value.toString())
+    // const index = data.findIndex(item => item.name === event.target.value.toString())
 
-    setCategoryIndex(index)
+    // setCategoryIndex(index)
+
+    const selectedItem = data.find(item => item.name === event.target.value.toString())
+
+    if (selectedItem) {
+      setCategoryIndex(selectedItem.id) // set id of selected item instead of index
+    }
   }
 
   const [value, setValue] = React.useState(0)
